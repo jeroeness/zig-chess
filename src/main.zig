@@ -28,8 +28,9 @@ pub fn main() !void {
     game_state.getBoard().setupInitialPosition();
     var move = Move.initFromCoords(6, 4, 7, 4);
     const move_action = try move.asAction(std.heap.page_allocator);
-    _ = try game_state.executeAction(move_action);
-    _ = game_state.undoLastAction();
+    const result = try game_state.executeAction(move_action);
+    std.debug.print("Move executed: {}\n", .{result});
+    // _ = game_state.undoLastAction();
 
     // Initialize renderer with configuration
     const config = RendererConfig{
