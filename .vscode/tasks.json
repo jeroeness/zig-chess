@@ -1,0 +1,85 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build (Release)",
+            "type": "shell",
+            "command": "zig build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Build (Debug)",
+            "type": "shell",
+            "command": "zig build -Ddebug",
+        },
+        {
+            "label": "Build GDB (Release)",
+            "type": "shell",
+            "command": "zig build -Doptimize=Debug",
+        },
+        {
+            "label": "Build GDB (Debug)",
+            "type": "shell",
+            "command": "zig build -Doptimize=Debug",
+        },
+        {
+            "label": "Format current file",
+            "type": "shell",
+            "command": "zig fmt ${file}",
+            "problemMatcher": []
+        },
+        {
+            "label": "gdbDebugRun",
+            "type": "shell",
+            "dependsOn": [
+                "Build GDB (Debug)"
+            ],
+            "presentation": {
+                "clear": true,
+                "reveal": "always",
+                "panel": "shared",
+            },
+        },
+        {
+            "label": "gdbReleaseRun",
+            "type": "shell",
+            "dependsOn": [
+                "Build GDB (Release)"
+            ],
+            "presentation": {
+                "clear": true,
+                "reveal": "always",
+                "panel": "shared"
+            },
+        },
+        {
+            "label": "debugRun",
+            "type": "shell",
+            "dependsOn": [
+                "Build (Debug)"
+            ],
+            "presentation": {
+                "clear": true,
+                "reveal": "always",
+                "panel": "shared",
+            },
+        },
+        {
+            "label": "releaseRun",
+            "type": "shell",
+            "dependsOn": [
+                "Build (Release)"
+            ],
+            "presentation": {
+                "clear": true,
+                "reveal": "always",
+                "panel": "shared"
+            },
+        },
+    ]
+}
