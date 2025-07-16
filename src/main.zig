@@ -9,8 +9,10 @@ const renderer = @import("renderer.zig");
 const Board = board.Board;
 const Renderer = renderer.Renderer;
 const RendererConfig = renderer.RendererConfig;
+const GameState = @import("gamestate.zig").GameState;
+const Move = @import("actions/move.zig").Move;
 
-pub fn main() void {
+pub fn main() !void {
     const screenWidth = 800;
     const screenHeight = 800;
 
@@ -19,9 +21,15 @@ pub fn main() void {
 
     ray.SetTargetFPS(60);
 
+    var game_state = GameState.init(std.heap.page_allocator);
+    defer game_state.deinit();
     // Initialize chess board
-    var chess_board = Board.init();
-    chess_board.setupInitialPosition();
+
+    game_state.getBoard().setupInitialPosition();
+    var move = Move.initFromCoords(6, 4, 7, 4);
+    const move_action = try move.asAction(std.heap.page_allocator);
+    _ = try game_state.executeAction(move_action);
+    _ = game_state.undoLastAction();
 
     // Initialize renderer with configuration
     const config = RendererConfig{
@@ -40,7 +48,7 @@ pub fn main() void {
         ray.ClearBackground(ray.RAYWHITE);
 
         // Draw the chess board and pieces
-        chess_renderer.drawBoard(&chess_board);
+        chess_renderer.drawBoard(game_state.getBoard());
 
         // Draw coordinate labels
         chess_renderer.drawCoordinates();

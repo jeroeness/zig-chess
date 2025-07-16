@@ -1,70 +1,13 @@
 const std = @import("std");
-const board_module = @import("board.zig");
-const piece_module = @import("piece.zig");
+const board_module = @import("../board.zig");
+const piece_module = @import("../piece.zig");
+const coord_module = @import("../coord.zig");
+const action_module = @import("action.zig");
 
 pub const Board = board_module.Board;
 pub const Piece = piece_module.Piece;
-
-// Abstract Action interface using function pointers
-pub const Action = struct {
-    const Self = @This();
-
-    // Function pointer for executing the action
-    executeFn: *const fn (action: *const Action, game_board: *Board) bool,
-    // Function pointer for undoing the action
-    undoFn: *const fn (action: *const Action, game_board: *Board) bool,
-    // Function pointer for getting string representation
-    toStringFn: *const fn (action: *const Action, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8,
-    // Function pointer for cleanup
-    deinitFn: *const fn (action: *const Action, allocator: std.mem.Allocator) void,
-
-    // Pointer to the actual data (will be cast to specific action type)
-    data: *anyopaque,
-
-    // Interface methods
-    pub fn execute(self: *const Action, game_board: *Board) bool {
-        return self.executeFn(self, game_board);
-    }
-
-    pub fn undo(self: *const Action, game_board: *Board) bool {
-        return self.undoFn(self, game_board);
-    }
-
-    pub fn toString(self: *const Action, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8 {
-        return self.toStringFn(self, allocator);
-    }
-
-    pub fn deinit(self: *const Action, allocator: std.mem.Allocator) void {
-        self.deinitFn(self, allocator);
-    }
-};
-
-// Coordinate position on the board
-pub const Coord = struct {
-    row: u8,
-    col: u8,
-
-    pub fn init(row: u8, col: u8) Coord {
-        return Coord{
-            .row = row,
-            .col = col,
-        };
-    }
-
-    pub fn isValid(self: Coord) bool {
-        return self.row < 8 and self.col < 8;
-    }
-
-    pub fn eql(self: Coord, other: Coord) bool {
-        return self.row == other.row and self.col == other.col;
-    }
-
-    pub fn toString(self: Coord, allocator: std.mem.Allocator) ![]u8 {
-        const col_char = @as(u8, 'a') + self.col;
-        const row_char = @as(u8, '1') + self.row;
-        return std.fmt.allocPrint(allocator, "{c}{c}", .{ col_char, row_char });
-    }
-};
+pub const Coord = coord_module.Coord;
+pub const Action = action_module.Action;
 
 // Concrete Move action
 pub const Move = struct {
