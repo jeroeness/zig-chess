@@ -2,7 +2,6 @@
 //! you are making an executable, the convention is to delete this file and
 //! start with main.zig instead.
 const std = @import("std");
-const testing = std.testing;
 
 // Re-export the modules
 pub const piece = @import("piece.zig");
@@ -26,28 +25,6 @@ pub const Move = action.Move;
 pub const Skip = action.Skip;
 pub const Coord = coord.Coord;
 pub const GameState = gamestate.GameState;
-
-test "board initialization" {
-    var chessboard = Board.init();
-
-    // Test that all cells are initialized and pieces are empty
-    for (0..8) |row| {
-        for (0..8) |col| {
-            const chess_cell = chessboard.getCell(@intCast(row), @intCast(col));
-            try testing.expect(chess_cell != null);
-            try testing.expect(chess_cell.?.row == row);
-            try testing.expect(chess_cell.?.col == col);
-            try testing.expect(chessboard.isEmpty(@intCast(row), @intCast(col)));
-        }
-    }
-}
-
-test "piece placement and movement" {
-    var chessboard = Board.init();
-
-    // Test piece placement
-    const white_king = Piece.init(.king, .white);
-    try testing.expect(chessboard.setPiece(4, 4, white_king));
 
     try testing.expect(!chessboard.isEmpty(4, 4));
     const placed_piece = chessboard.getPieceConst(4, 4);
