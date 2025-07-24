@@ -2,91 +2,128 @@ const std = @import("std");
 const board = @import("board.zig");
 const action = @import("actions/action.zig");
 const piece = @import("piece.zig");
+const turn = @import("turn.zig");
 
 pub const Board = board.Board;
 pub const Action = action.Action;
 pub const PieceColor = piece.PieceColor;
+pub const Turn = turn.Turn;
 
 // GameState class that manages the board and action history
 pub const GameState = struct {
     board: Board,
-    actions: std.ArrayList(*Action),
+    turns: std.ArrayList(*Turn),
     allocator: std.mem.Allocator,
     current_turn: PieceColor,
+    current_ply: i32,
 
     pub fn init(allocator: std.mem.Allocator) GameState {
         return GameState{
             .board = Board.init(),
-            .actions = std.ArrayList(*Action).init(allocator),
+            .turns = std.ArrayList(*Turn).init(allocator),
             .allocator = allocator,
             .current_turn = .white,
+            .current_ply = 0,
         };
     }
 
     pub fn deinit(self: *GameState) void {
-        // Clean up all actions
-        for (self.actions.items) |action_ptr| {
-            action_ptr.deinit(self.allocator);
-            self.allocator.destroy(action_ptr);
+        for (self.turns.items) |turn_ptr| {
+            turn_ptr.deinit();
+            self.allocator.destroy(turn_ptr);
         }
-        self.actions.deinit();
+        self.turns.deinit();
     }
 
     pub fn executeAction(self: *GameState, action_ptr: *Action) !bool {
+        const side: u8 = if (self.current_turn == .white) 0 else 1;
+
+        var current_turn_ptr: *Turn = undefined;
+
+        if (self.turns.items.len == 0 or self.turns.items[self.turns.items.len - 1].side != side) {
+            current_turn_ptr = try self.allocator.create(Turn);
+            current_turn_ptr.* = Turn.init(self.allocator, side, self.current_ply);
+            try self.turns.append(current_turn_ptr);
+        } else {
+            current_turn_ptr = self.turns.items[self.turns.items.len - 1];
+        }
+
         const success = action_ptr.execute(&self.board);
         if (success) {
-            try self.actions.append(action_ptr);
-        }
-        return success;
-    }
-
-    pub fn undoLastAction(self: *GameState) bool {
-        if (self.actions.items.len == 0) {
-            return false;
-        }
-
-        if (self.actions.pop()) |last_action| {
-            const success = last_action.undo(&self.board);
-
-            if (success) {
-                // Clean up the action
-                last_action.deinit(self.allocator);
-                self.allocator.destroy(last_action);
-            } else {
-                // If undo failed, put the action back
-                self.actions.append(last_action) catch return false;
+            try current_turn_ptr.addAction(action_ptr);
+            self.nextTurn();
+            if (side == 1) {
+                self.current_ply += 1;
             }
-
-            return success;
+            return true;
         }
         return false;
     }
 
+    pub fn undoLastAction(self: *GameState) bool {
+        if (self.turns.items.len == 0) {
+            return false;
+        }
+
+        const last_turn = self.turns.items[self.turns.items.len - 1];
+        if (last_turn.actions.items.len == 0) {
+            return false;
+        }
+
+        const last_action = last_turn.actions.items[last_turn.actions.items.len - 1];
+        const success = last_action.undo(&self.board);
+
+        if (success) {
+            _ = last_turn.actions.pop();
+            last_action.deinit(self.allocator);
+            self.allocator.destroy(last_action);
+
+            if (last_turn.actions.items.len == 0) {
+                _ = self.turns.pop();
+                last_turn.deinit();
+                self.allocator.destroy(last_turn);
+            }
+        }
+
+        return success;
+    }
+
     pub fn getActionCount(self: *const GameState) usize {
-        return self.actions.items.len;
+        var total_actions: usize = 0;
+        for (self.turns.items) |turn_ptr| {
+            total_actions += turn_ptr.getActionCount();
+        }
+        return total_actions;
     }
 
     pub fn getAction(self: *const GameState, index: usize) ?*Action {
-        if (index >= self.actions.items.len) {
-            return null;
+        var current_index: usize = 0;
+        for (self.turns.items) |turn_ptr| {
+            if (index < current_index + turn_ptr.getActionCount()) {
+                return turn_ptr.getAction(index - current_index);
+            }
+            current_index += turn_ptr.getActionCount();
         }
-        return self.actions.items[index];
+        return null;
     }
 
     pub fn getLastAction(self: *const GameState) ?*Action {
-        if (self.actions.items.len == 0) {
+        if (self.turns.items.len == 0) {
             return null;
         }
-        return self.actions.items[self.actions.items.len - 1];
+        const last_turn = self.turns.items[self.turns.items.len - 1];
+        if (last_turn.actions.items.len == 0) {
+            return null;
+        }
+        return last_turn.actions.items[last_turn.actions.items.len - 1];
     }
 
     pub fn clearActions(self: *GameState) void {
-        // Clean up all actions
-        for (self.actions.items) |action_ptr| {
-            action_ptr.deinit(self.allocator);
-            self.allocator.destroy(action_ptr);
+        for (self.turns.items) |turn_ptr| {
+            turn_ptr.deinit();
+            self.allocator.destroy(turn_ptr);
         }
-        self.actions.clearAndFree();
+        self.turns.clearAndFree();
     }
 
     pub fn setupInitialPosition(self: *GameState) void {
@@ -113,13 +150,29 @@ pub const GameState = struct {
     }
 
     pub fn getHistoryLength(self: *const GameState) usize {
-        return self.actions.items.len;
+        return self.turns.items.len;
     }
 
-    pub fn hash(self: *const GameState) u64 {
-        // Create a mutable copy to call hash on
-        var board_copy = self.board;
-        return board_copy.hash();
+    pub fn getTurnCount(self: *const GameState) usize {
+        return self.turns.items.len;
+    }
+
+    pub fn getTurnByIndex(self: *const GameState, index: usize) ?*Turn {
+        if (index >= self.turns.items.len) {
+            return null;
+        }
+        return self.turns.items[index];
+    }
+
+    pub fn getLastTurn(self: *const GameState) ?*Turn {
+        if (self.turns.items.len == 0) {
+            return null;
+        }
+        return self.turns.items[self.turns.items.len - 1];
+    }
+
+    pub fn getCurrentPly(self: *const GameState) i32 {
+        return self.current_ply;
     }
 
     pub fn eql(self: *const GameState, other: GameState) bool {

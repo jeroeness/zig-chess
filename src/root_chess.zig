@@ -11,6 +11,7 @@ pub const renderer = @import("renderer.zig");
 pub const action = @import("actions/action.zig");
 pub const coord = @import("coord.zig");
 pub const gamestate = @import("gamestate.zig");
+pub const turn = @import("turn.zig");
 
 // Re-export the main types for easy access
 pub const PieceType = piece.PieceType;
@@ -25,3 +26,4 @@ pub const Move = action.Move;
 pub const Skip = action.Skip;
 pub const Coord = coord.Coord;
 pub const GameState = gamestate.GameState;
+pub const Turn = turn.Turn;

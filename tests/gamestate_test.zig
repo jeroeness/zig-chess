@@ -133,11 +133,6 @@ test "gamestate serialization and deserialization" {
     try testing.expect(original_pawn.?.piece_type == .pawn);
     try testing.expect(deserialized_pawn.?.piece_type == .pawn);
     try testing.expect(original_pawn.?.color == deserialized_pawn.?.color);
-
-    // Test that hash values are consistent
-    const original_hash = state.hash();
-    const deserialized_hash = deserialized_state.hash();
-    try testing.expect(original_hash == deserialized_hash);
 }
 
 test "gamestate initialization and basic functionality" {

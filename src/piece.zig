@@ -34,12 +34,10 @@ pub const Piece = struct {
         return self.piece_type == .none;
     }
 
-    // Binary serialization
     pub fn serialize(self: Piece) [2]u32 {
         return [2]u32{ @intFromEnum(self.piece_type), @intFromEnum(self.color) };
     }
 
-    // Binary deserialization
     pub fn deserialize(data: [2]u32) !Piece {
         const piece_type = @as(PieceType, @enumFromInt(data[0]));
         const color = @as(PieceColor, @enumFromInt(data[1]));
@@ -47,12 +45,10 @@ pub const Piece = struct {
         return Piece.init(piece_type, color);
     }
 
-    // Hash function for comparing pieces (optimized with XOR)
     pub fn hash(self: Piece) u64 {
         return @as(u64, @intFromEnum(self.piece_type)) ^ @as(u64, @intFromEnum(self.color));
     }
 
-    // Equality function for comparing pieces
     pub fn eql(self: Piece, other: Piece) bool {
         return self.piece_type == other.piece_type and self.color == other.color;
     }
