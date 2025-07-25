@@ -93,7 +93,7 @@ test "gamestate serialization and deserialization" {
     chess_board.setupInitialPosition();
 
     // Add a custom amazon piece for testing
-    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white));
+    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white, 1));
 
     // Serialize the initial state
     const serialized_data = try state.serialize(allocator);
@@ -110,17 +110,17 @@ test "gamestate serialization and deserialization" {
     const deserialized_king = deserialized_state.getBoard().getPieceConst(0, 4);
     try testing.expect(original_king != null);
     try testing.expect(deserialized_king != null);
-    try testing.expect(original_king.?.piece_type == deserialized_king.?.piece_type);
-    try testing.expect(original_king.?.color == deserialized_king.?.color);
+    try testing.expect(original_king.?.getType() == deserialized_king.?.getType());
+    try testing.expect(original_king.?.getColor() == deserialized_king.?.getColor());
 
     // Test the custom amazon piece
     const original_amazon = chess_board.getPieceConst(2, 2);
     const deserialized_amazon = deserialized_state.getBoard().getPieceConst(2, 2);
     try testing.expect(original_amazon != null);
     try testing.expect(deserialized_amazon != null);
-    try testing.expect(original_amazon.?.piece_type == .amazon);
-    try testing.expect(deserialized_amazon.?.piece_type == .amazon);
-    try testing.expect(original_amazon.?.color == deserialized_amazon.?.color);
+    try testing.expect(original_amazon.?.getType() == .amazon);
+    try testing.expect(deserialized_amazon.?.getType() == .amazon);
+    try testing.expect(original_amazon.?.getColor() == deserialized_amazon.?.getColor());
 
     // Test that a pawn position is consistent (should have white pawn in both boards)
     try testing.expect(!chess_board.isEmpty(1, 1));
@@ -130,9 +130,9 @@ test "gamestate serialization and deserialization" {
     const deserialized_pawn = deserialized_state.getBoard().getPieceConst(1, 1);
     try testing.expect(original_pawn != null);
     try testing.expect(deserialized_pawn != null);
-    try testing.expect(original_pawn.?.piece_type == .pawn);
-    try testing.expect(deserialized_pawn.?.piece_type == .pawn);
-    try testing.expect(original_pawn.?.color == deserialized_pawn.?.color);
+    try testing.expect(original_pawn.?.getType() == .pawn);
+    try testing.expect(deserialized_pawn.?.getType() == .pawn);
+    try testing.expect(original_pawn.?.getColor() == deserialized_pawn.?.getColor());
 }
 
 test "gamestate initialization and basic functionality" {
@@ -390,7 +390,7 @@ test "gamestate with promotion moves" {
     defer game_state.deinit();
 
     // Set up a board with a pawn ready to promote
-    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white));
+    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white, 1));
 
     // Execute a promotion move
     var promotion_move = Move.initFromCoordsWithPromotion(6, 4, 7, 4, .queen);
@@ -405,8 +405,8 @@ test "gamestate with promotion moves" {
 
     const promoted_piece = game_state.getBoard().getPieceConst(7, 4);
     try testing.expect(promoted_piece != null);
-    try testing.expect(promoted_piece.?.piece_type == .queen);
-    try testing.expect(promoted_piece.?.color == .white);
+    try testing.expect(promoted_piece.?.getType() == .queen);
+    try testing.expect(promoted_piece.?.getColor() == .white);
 
     // Undo the promotion
     try testing.expect(game_state.undoLastAction());
@@ -417,8 +417,8 @@ test "gamestate with promotion moves" {
 
     const restored_piece = game_state.getBoard().getPieceConst(6, 4);
     try testing.expect(restored_piece != null);
-    try testing.expect(restored_piece.?.piece_type == .pawn);
-    try testing.expect(restored_piece.?.color == .white);
+    try testing.expect(restored_piece.?.getType() == .pawn);
+    try testing.expect(restored_piece.?.getColor() == .white);
 }
 
 test "gamestate edge cases and error handling" {

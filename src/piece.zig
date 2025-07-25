@@ -1,52 +1,66 @@
 const std = @import("std");
+const pieceType = @import("pieces/piecetype.zig");
+const movement = @import("pieces/movement.zig");
+const PieceType = pieceType.PieceType;
 
-pub const PieceType = enum(u32) {
-    none = 0,
-    pawn = 1,
-    rook = 2,
-    knight = 3,
-    bishop = 4,
-    queen = 5,
-    king = 6,
-    amazon = 7, 
+pub const PieceColor = enum(u8) {
+    white = 0x00,
+    black = 0x80,
 };
 
-pub const PieceColor = enum(u32) {
-    white = 0x00, 
-    black = 0x10, 
-};
+pub const PieceTypeColor = u8;
 
 pub const Piece = struct {
-    piece_type: PieceType,
-    color: PieceColor,
+    piece: PieceTypeColor,
+    id: u8,
 
-    pub fn init(piece_type: PieceType, color: PieceColor) Piece {
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
         return Piece{
-            .piece_type = piece_type,
-            .color = color,
+            .piece = @intFromEnum(piece_type) + @intFromEnum(color),
+            .id = id,
         };
     }
 
+    pub fn isColor(self: Piece, color: PieceColor) bool {
+        return (self.piece & 0x80) == @intFromEnum(color);
+    }
+
+    pub fn isType(self: Piece, piece_type: PieceType) bool {
+        return (self.piece & 0x7F) == @intFromEnum(piece_type);
+    }
+
+    pub fn getType(self: Piece) PieceType {
+        return @enumFromInt(self.piece & 0x7F);
+    }
+
+    pub fn getColor(self: Piece) PieceColor {
+        return @enumFromInt(self.piece & 0x80);
+    }
+
     pub fn isEmpty(self: Piece) bool {
-        return self.piece_type == .none;
+        return self.piece & 0x7F == .none;
     }
 
     pub fn serialize(self: Piece) [2]u32 {
-        return [2]u32{ @intFromEnum(self.piece_type), @intFromEnum(self.color) };
+        return [2]u32{ self.piece, self.id };
     }
 
-    pub fn deserialize(data: [2]u32) !Piece {
-        const piece_type = @as(PieceType, @enumFromInt(data[0]));
-        const color = @as(PieceColor, @enumFromInt(data[1]));
-
-        return Piece.init(piece_type, color);
+    pub fn deserialize(data: [2]u32) Piece {
+        return Piece{
+            .piece = @intCast(data[0]),
+            .id = @intCast(data[1]),
+        };
     }
 
     pub fn hash(self: Piece) u64 {
-        return @as(u64, @intFromEnum(self.piece_type)) ^ @as(u64, @intFromEnum(self.color));
+        return @as(u64, self.piece) ^ (@as(u64, self.id) << 8);
     }
 
     pub fn eql(self: Piece, other: Piece) bool {
-        return self.piece_type == other.piece_type and self.color == other.color;
+        return self.piece == other.piece and self.id == other.id;
+    }
+
+    pub fn getMoves(self: Piece, from: movement.Coord, board: *const movement.Board, allocator: std.mem.Allocator) std.mem.Allocator.Error!movement.MoveList {
+        return movement.getMoves(self, from, board, allocator);
     }
 };

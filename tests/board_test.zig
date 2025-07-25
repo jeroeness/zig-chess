@@ -24,14 +24,14 @@ test "piece placement and movement" {
     var chessboard = Board.init();
 
     // Test piece placement
-    const white_king = Piece.init(.king, .white);
+    const white_king = Piece.init(.king, .white, 1);
     try testing.expect(chessboard.setPiece(4, 4, white_king));
 
     // Verify the piece was placed correctly
     const placed_piece = chessboard.getPieceConst(4, 4);
     try testing.expect(placed_piece != null);
-    try testing.expect(placed_piece.?.piece_type == .king);
-    try testing.expect(placed_piece.?.color == .white);
+    try testing.expect(placed_piece.?.getType() == .king);
+    try testing.expect(placed_piece.?.getColor() == .white);
 
     // Test move piece
     try testing.expect(chessboard.movePiece(4, 4, 5, 5));
@@ -40,8 +40,8 @@ test "piece placement and movement" {
     try testing.expect(chessboard.isEmpty(4, 4));
     const moved_piece = chessboard.getPieceConst(5, 5);
     try testing.expect(moved_piece != null);
-    try testing.expect(moved_piece.?.piece_type == .king);
-    try testing.expect(moved_piece.?.color == .white);
+    try testing.expect(moved_piece.?.getType() == .king);
+    try testing.expect(moved_piece.?.getColor() == .white);
 }
 
 test "initial board setup" {
@@ -51,44 +51,44 @@ test "initial board setup" {
     // Test white pieces (bottom row - row 0)
     const white_rook_a1 = chessboard.getPieceConst(0, 0);
     try testing.expect(white_rook_a1 != null);
-    try testing.expect(white_rook_a1.?.piece_type == .rook);
-    try testing.expect(white_rook_a1.?.color == .white);
+    try testing.expect(white_rook_a1.?.getType() == .rook);
+    try testing.expect(white_rook_a1.?.getColor() == .white);
 
     const white_knight_b1 = chessboard.getPieceConst(0, 1);
     try testing.expect(white_knight_b1 != null);
-    try testing.expect(white_knight_b1.?.piece_type == .knight);
-    try testing.expect(white_knight_b1.?.color == .white);
+    try testing.expect(white_knight_b1.?.getType() == .knight);
+    try testing.expect(white_knight_b1.?.getColor() == .white);
 
     const white_king_e1 = chessboard.getPieceConst(0, 4);
     try testing.expect(white_king_e1 != null);
-    try testing.expect(white_king_e1.?.piece_type == .king);
-    try testing.expect(white_king_e1.?.color == .white);
+    try testing.expect(white_king_e1.?.getType() == .king);
+    try testing.expect(white_king_e1.?.getColor() == .white);
 
     // Test white pawns (row 1)
     for (0..8) |col| {
         const pawn = chessboard.getPieceConst(1, @intCast(col));
         try testing.expect(pawn != null);
-        try testing.expect(pawn.?.piece_type == .pawn);
-        try testing.expect(pawn.?.color == .white);
+        try testing.expect(pawn.?.getType() == .pawn);
+        try testing.expect(pawn.?.getColor() == .white);
     }
 
     // Test black pieces (top row - row 7)
     const black_rook_a8 = chessboard.getPieceConst(7, 0);
     try testing.expect(black_rook_a8 != null);
-    try testing.expect(black_rook_a8.?.piece_type == .rook);
-    try testing.expect(black_rook_a8.?.color == .black);
+    try testing.expect(black_rook_a8.?.getType() == .rook);
+    try testing.expect(black_rook_a8.?.getColor() == .black);
 
     const black_king_e8 = chessboard.getPieceConst(7, 4);
     try testing.expect(black_king_e8 != null);
-    try testing.expect(black_king_e8.?.piece_type == .king);
-    try testing.expect(black_king_e8.?.color == .black);
+    try testing.expect(black_king_e8.?.getType() == .king);
+    try testing.expect(black_king_e8.?.getColor() == .black);
 
     // Test black pawns (row 6)
     for (0..8) |col| {
         const pawn = chessboard.getPieceConst(6, @intCast(col));
         try testing.expect(pawn != null);
-        try testing.expect(pawn.?.piece_type == .pawn);
-        try testing.expect(pawn.?.color == .black);
+        try testing.expect(pawn.?.getType() == .pawn);
+        try testing.expect(pawn.?.getColor() == .black);
     }
 
     // Test empty squares (rows 2-5)
@@ -109,8 +109,8 @@ test "serialize and deserialize board" {
     original_board.setupInitialPosition();
 
     // Add a custom amazon piece for testing
-    _ = original_board.setPiece(2, 2, Piece.init(.amazon, .white));
-    
+    _ = original_board.setPiece(2, 2, Piece.init(.amazon, .white, 1));
+
     // Clear a piece for testing empty positions
     _ = original_board.clearPiece(1, 1);
 
@@ -130,17 +130,17 @@ test "serialize and deserialize board" {
     const deserialized_king = deserialized_board.getPieceConst(0, 4);
     try testing.expect(original_king != null);
     try testing.expect(deserialized_king != null);
-    try testing.expect(original_king.?.piece_type == deserialized_king.?.piece_type);
-    try testing.expect(original_king.?.color == deserialized_king.?.color);
+    try testing.expect(original_king.?.getType() == deserialized_king.?.getType());
+    try testing.expect(original_king.?.getColor() == deserialized_king.?.getColor());
 
     // Test the custom amazon piece
     const original_amazon = original_board.getPieceConst(2, 2);
     const deserialized_amazon = deserialized_board.getPieceConst(2, 2);
     try testing.expect(original_amazon != null);
     try testing.expect(deserialized_amazon != null);
-    try testing.expect(original_amazon.?.piece_type == .amazon);
-    try testing.expect(deserialized_amazon.?.piece_type == .amazon);
-    try testing.expect(original_amazon.?.color == deserialized_amazon.?.color);
+    try testing.expect(original_amazon.?.getType() == .amazon);
+    try testing.expect(deserialized_amazon.?.getType() == .amazon);
+    try testing.expect(original_amazon.?.getColor() == deserialized_amazon.?.getColor());
 
     // Test the cleared piece (should be empty in both boards)
     try testing.expect(original_board.isEmpty(1, 1));

@@ -1,6 +1,7 @@
 const std = @import("std");
 const board_module = @import("../board.zig");
 const piece_module = @import("../piece.zig");
+const piecetype_module = @import("../pieces/piecetype.zig");
 const coord_module = @import("../coord.zig");
 const action_module = @import("action.zig");
 
@@ -8,13 +9,14 @@ pub const Board = board_module.Board;
 pub const Piece = piece_module.Piece;
 pub const Coord = coord_module.Coord;
 pub const Action = action_module.Action;
+const PieceType = piecetype_module.PieceType;
 
 pub const Move = struct {
     start_coord: Coord,
     target_coord: Coord,
-    captured_piece: ?Piece = null, 
-    promotion_type: ?piece_module.PieceType = null, 
-    original_piece: ?Piece = null, 
+    captured_piece: ?Piece = null,
+    promotion_type: ?PieceType = null,
+    original_piece: ?Piece = null,
 
     pub fn init(start_coord: Coord, target_coord: Coord) Move {
         return Move{
@@ -23,7 +25,7 @@ pub const Move = struct {
         };
     }
 
-    pub fn initWithPromotion(start_coord: Coord, target_coord: Coord, promotion_type: piece_module.PieceType) Move {
+    pub fn initWithPromotion(start_coord: Coord, target_coord: Coord, promotion_type: PieceType) Move {
         return Move{
             .start_coord = start_coord,
             .target_coord = target_coord,
@@ -38,7 +40,7 @@ pub const Move = struct {
         };
     }
 
-    pub fn initFromCoordsWithPromotion(start_row: u8, start_col: u8, target_row: u8, target_col: u8, promotion_type: piece_module.PieceType) Move {
+    pub fn initFromCoordsWithPromotion(start_row: u8, start_col: u8, target_row: u8, target_col: u8, promotion_type: PieceType) Move {
         return Move{
             .start_coord = Coord.init(start_row, start_col),
             .target_coord = Coord.init(target_row, target_col),
@@ -82,7 +84,7 @@ pub const Move = struct {
             const moved_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
             if (moved_piece) |piece| {
                 move_mut.original_piece = piece;
-                const promoted_piece = Piece.init(promo_type, piece.color);
+                const promoted_piece = Piece.init(promo_type, piece.getColor(), piece.id);
                 _ = game_board.setPiece(move.target_coord.row, move.target_coord.col, promoted_piece);
             }
         }

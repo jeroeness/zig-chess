@@ -1,0 +1,10 @@
+2025-07-25 08:51:12 DEBUG    server             __init__           Initializing server 'Rapid MCP'
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for ListToolsRequest
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for CallToolRequest
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for ListResourcesRequest
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for ReadResourceRequest
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for PromptListRequest
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for GetPromptRequest
+2025-07-25 08:51:12 DEBUG    server             decorator          Registering handler for ListResourceTemplatesRequest
+2025-07-25 08:51:12 DEBUG    selector_events    __init__           Using selector: EpollSelector
+2025-07-25 08:51:12 INFO     streamable_http_manager run                StreamableHTTP session manager started

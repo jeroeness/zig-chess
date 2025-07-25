@@ -1,0 +1,37 @@
+2025-07-25 08:50:08 DEBUG    server             __init__           Initializing server 'Rapid MCP'
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for ListToolsRequest
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for CallToolRequest
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for ListResourcesRequest
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for ReadResourceRequest
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for PromptListRequest
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for GetPromptRequest
+2025-07-25 08:50:08 DEBUG    server             decorator          Registering handler for ListResourceTemplatesRequest
+2025-07-25 08:50:08 DEBUG    selector_events    __init__           Using selector: EpollSelector
+2025-07-25 08:50:08 INFO     streamable_http_manager run                StreamableHTTP session manager started
+2025-07-25 08:50:30 DEBUG    streamable_http_manager _handle_stateful_request Creating new transport
+2025-07-25 08:50:30 INFO     streamable_http_manager _handle_stateful_request Created new transport with session ID: 8f12726c972346db8c4e408242bdc83f
+2025-07-25 08:50:30 INFO     zig-mcp-server     lifespan           MCP Ready
+2025-07-25 08:50:30 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 08:50:30 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-03-26","capabilities":{"experimental":{},"prompts":{"listChanged":false},"resources":{"subscribe":false,"listChanged":false},"tools":{"listChanged":false}},"serverInfo":{"name":"Rapid MCP","version":"1.12.2"}}}\r\n\r\n'
+2025-07-25 08:50:30 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 08:50:30 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 08:50:31 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 08:50:31 DEBUG    server             run                Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-07-25 08:50:31 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 08:50:31 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7f498be12d50>
+2025-07-25 08:50:31 INFO     server             _handle_request    Processing request of type ListToolsRequest
+2025-07-25 08:50:31 DEBUG    server             _handle_request    Dispatching request of type ListToolsRequest
+2025-07-25 08:50:31 DEBUG    server             _handle_request    Response sent
+2025-07-25 08:50:31 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 08:50:31 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 08:50:31 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"run_all_zig_tests","description":"\\nRun Zig tests.\\n","inputSchema":{"properties":{},"title":"run_all_zig_testsArguments","type":"object"}}]}}\r\n\r\n'
+2025-07-25 08:50:31 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 08:50:31 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7f498be13110>
+2025-07-25 08:50:31 INFO     server             _handle_request    Processing request of type ListPromptsRequest
+2025-07-25 08:50:31 DEBUG    server             _handle_request    Dispatching request of type ListPromptsRequest
+2025-07-25 08:50:31 DEBUG    server             _handle_request    Response sent
+2025-07-25 08:50:31 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 08:50:31 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":3,"result":{"prompts":[]}}\r\n\r\n'
+2025-07-25 08:50:31 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 08:50:41 DEBUG    streamable_http    standalone_sse_writer Closing standalone SSE writer
+2025-07-25 08:50:41 INFO     streamable_http_manager run                StreamableHTTP session manager shutting down

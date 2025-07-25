@@ -98,31 +98,50 @@ pub const Board = struct {
                 self.pieces[row][col] = null;
             }
         }
+        var id: u8 = 0;
 
-        _ = self.setPiece(0, 0, Piece.init(.rook, .white));
-        _ = self.setPiece(0, 1, Piece.init(.knight, .white));
-        _ = self.setPiece(0, 2, Piece.init(.bishop, .white));
-        _ = self.setPiece(0, 3, Piece.init(.queen, .white));
-        _ = self.setPiece(0, 4, Piece.init(.king, .white));
-        _ = self.setPiece(0, 5, Piece.init(.bishop, .white));
-        _ = self.setPiece(0, 6, Piece.init(.amazon, .white));
-        _ = self.setPiece(0, 7, Piece.init(.rook, .white));
+        _ = self.setPiece(0, 0, Piece.init(.rook, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 1, Piece.init(.knight, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 2, Piece.init(.bishop, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 3, Piece.init(.queen, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 4, Piece.init(.king, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 5, Piece.init(.bishop, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 6, Piece.init(.amazon, .white, id));
+        id += 1;
+        _ = self.setPiece(0, 7, Piece.init(.rook, .white, id));
+        id += 1;
 
         for (0..8) |col| {
-            _ = self.setPiece(1, @intCast(col), Piece.init(.pawn, .white));
+            _ = self.setPiece(1, @intCast(col), Piece.init(.pawn, .white, id));
+            id += 1;
         }
 
-        _ = self.setPiece(7, 0, Piece.init(.rook, .black));
-        _ = self.setPiece(7, 1, Piece.init(.knight, .black));
-        _ = self.setPiece(7, 2, Piece.init(.bishop, .black));
-        _ = self.setPiece(7, 3, Piece.init(.queen, .black));
-        _ = self.setPiece(7, 4, Piece.init(.king, .black));
-        _ = self.setPiece(7, 5, Piece.init(.bishop, .black));
-        _ = self.setPiece(7, 6, Piece.init(.amazon, .black));
-        _ = self.setPiece(7, 7, Piece.init(.rook, .black));
+        _ = self.setPiece(7, 0, Piece.init(.rook, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 1, Piece.init(.knight, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 2, Piece.init(.bishop, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 3, Piece.init(.queen, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 4, Piece.init(.king, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 5, Piece.init(.bishop, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 6, Piece.init(.amazon, .black, id));
+        id += 1;
+        _ = self.setPiece(7, 7, Piece.init(.rook, .black, id));
+        id += 1;
 
         for (0..8) |col| {
-            _ = self.setPiece(6, @intCast(col), Piece.init(.pawn, .black));
+            _ = self.setPiece(6, @intCast(col), Piece.init(.pawn, .black, id));
+            id += 1;
         }
     }
 
@@ -136,7 +155,7 @@ pub const Board = struct {
 
         for (0..8) |row| {
             for (0..8) |col| {
-                try result.append(1); 
+                try result.append(1);
                 const cell_data = self.cells[row][col].serialize();
                 try result.append(@intCast(cell_data.len));
                 for (cell_data) |value| {
@@ -144,13 +163,13 @@ pub const Board = struct {
                 }
 
                 if (self.pieces[row][col]) |current_piece| {
-                    try result.append(2); 
+                    try result.append(2);
                     const piece_data = current_piece.serialize();
                     try result.append(@intCast(piece_data.len));
                     try result.appendSlice(&piece_data);
                 } else {
-                    try result.append(0); 
-                    try result.append(0); 
+                    try result.append(0);
+                    try result.append(0);
                 }
             }
         }
@@ -191,15 +210,15 @@ pub const Board = struct {
                 const piece_data_len = data[index];
                 index += 1;
 
-                if (piece_type == 2) { 
+                if (piece_type == 2) {
                     if (index + piece_data_len > data.len) return error.InvalidData;
                     const piece_data = data[index .. index + piece_data_len];
 
                     if (piece_data.len != 2) return error.InvalidPieceData;
                     const piece_array: [2]u32 = piece_data[0..2].*;
-                    board.pieces[row][col] = try Piece.deserialize(piece_array);
+                    board.pieces[row][col] = Piece.deserialize(piece_array);
                     index += piece_data_len;
-                } else if (piece_type == 0) { 
+                } else if (piece_type == 0) {
                     board.pieces[row][col] = null;
                     index += piece_data_len;
                 } else {

@@ -1,0 +1,9 @@
+[project]
+name = "zig-chess-mcp"
+version = "0.1.0"
+description = "MCP server for Zig Chess engine"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastmcp==2.10.6",
+]

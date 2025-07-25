@@ -9,6 +9,10 @@ pub fn main() !void {
     const screen_width = 800;
     const screen_height = 800;
 
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
     ray.InitWindow(screen_width, screen_height, "Zig Chess");
     defer ray.CloseWindow();
 
@@ -25,10 +29,12 @@ pub fn main() !void {
         .use_unicode = false,
     };
 
-    var renderer = root.Renderer.init(config);
+    var renderer = root.Renderer.init(config, allocator);
     defer renderer.deinit();
 
     while (!ray.WindowShouldClose()) {
+        renderer.handleMouseClick(&chess_board);
+
         ray.BeginDrawing();
         defer ray.EndDrawing();
 

@@ -1,0 +1,1173 @@
+2025-07-25 09:01:18 DEBUG    server             __init__           Initializing server 'Rapid MCP'
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for ListToolsRequest
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for CallToolRequest
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for ListResourcesRequest
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for ReadResourceRequest
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for PromptListRequest
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for GetPromptRequest
+2025-07-25 09:01:18 DEBUG    server             decorator          Registering handler for ListResourceTemplatesRequest
+2025-07-25 09:01:18 DEBUG    selector_events    __init__           Using selector: EpollSelector
+2025-07-25 09:01:18 INFO     streamable_http_manager run                StreamableHTTP session manager started
+2025-07-25 09:01:45 DEBUG    streamable_http_manager _handle_stateful_request Creating new transport
+2025-07-25 09:01:45 INFO     streamable_http_manager _handle_stateful_request Created new transport with session ID: f30c158c137347daba104ffd1980e310
+2025-07-25 09:01:45 INFO     zig-mcp-server     lifespan           MCP Ready
+2025-07-25 09:01:45 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 09:01:45 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-03-26","capabilities":{"experimental":{},"prompts":{"listChanged":false},"resources":{"subscribe":false,"listChanged":false},"tools":{"listChanged":false}},"serverInfo":{"name":"Rapid MCP","version":"1.12.2"}}}\r\n\r\n'
+2025-07-25 09:01:45 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 09:01:45 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 09:01:45 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 09:01:45 DEBUG    server             run                Received message: root=InitializedNotification(method='notifications/initialized', params=None, jsonrpc='2.0')
+2025-07-25 09:01:45 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 09:01:45 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa747134d0>
+2025-07-25 09:01:45 INFO     server             _handle_request    Processing request of type ListToolsRequest
+2025-07-25 09:01:45 DEBUG    server             _handle_request    Dispatching request of type ListToolsRequest
+2025-07-25 09:01:45 DEBUG    server             _handle_request    Response sent
+2025-07-25 09:01:45 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 09:01:45 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"run_all_zig_tests","description":"\\nRun Zig tests.\\n","inputSchema":{"properties":{},"title":"run_all_zig_testsArguments","type":"object"}}]}}\r\n\r\n'
+2025-07-25 09:01:45 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 09:01:45 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 09:01:45 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74713390>
+2025-07-25 09:01:45 INFO     server             _handle_request    Processing request of type ListPromptsRequest
+2025-07-25 09:01:45 DEBUG    server             _handle_request    Dispatching request of type ListPromptsRequest
+2025-07-25 09:01:45 DEBUG    server             _handle_request    Response sent
+2025-07-25 09:01:45 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 09:01:45 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":3,"result":{"prompts":[]}}\r\n\r\n'
+2025-07-25 09:01:45 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 09:01:45 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 09:01:45 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74703490>
+2025-07-25 09:01:45 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 09:01:45 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 09:01:45 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 09:01:45 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test 22/23 passed, 1 failed
+error: 'gamestate_test.test.gamestate initialization and basic functionality' failed: /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/std/testing.zig:580:14: 0x111839f in expect (test)
+    if (!ok) return error.TestUnexpectedResult;
+             ^
+/home/jeroen/projects/zig-chess/tests/gamestate_test.zig:163:5: 0x1135f1b in test.gamestate initialization and basic functionality (test)
+    try testing.expect(game_state.getBoard().isEmpty(0, 0)); // White rook
+    ^
+error: while executing test 'gamestate_test.test.gamestate memory management', the following test command failed:
+/home/jeroen/projects/zig-chess/.zig-cache/o/e2527dcc4fc42fd75c0b016baec90c65/test --seed=0x496797e --cache-dir=/home/jeroen/projects/zig-chess/.zig-cache --listen=- 
+Build Summary: 1/3 steps succeeded; 1 failed; 22/23 tests passed; 1 failed
+test transitive failure
++- run test 22/23 passed, 1 failed
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/870b71319f3124d959cf3da20f177e5c/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x496797e -Z50409cc60fbe70b8 test
+
+2025-07-25 09:01:45 DEBUG    server             _handle_request    Response sent
+2025-07-25 09:01:45 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 09:01:45 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":4,"result":{"content":[{"type":"text","text":"test\\n+- run test 22/23 passed, 1 failed\\nerror: \'gamestate_test.test.gamestate initialization and basic functionality\' failed: /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/std/testing.zig:580:14: 0x111839f in expect (test)\\n    if (!ok) return error.TestUnexpectedResult;\\n             ^\\n/home/jeroen/projects/zig-chess/tests/gamestate_test.zig:163:5: 0x1135f1b in test.gamestate initialization and basic functionality (test)\\n    try testing.expect(game_state.getBoard().isEmpty(0, 0)); // White rook\\n    ^\\nerror: while executing test \'gamestate_test.test.gamestate memory management\', the following test command failed:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/e2527dcc4fc42fd75c0b016baec90c65/test --seed=0x496797e --cache-dir=/home/jeroen/projects/zig-chess/.zig-cache --listen=- \\nBuild Summary: 1/3 steps succeeded; 1 failed; 22/23 tests passed; 1 failed\\ntest transitive failure\\n+- run test 22/23 passed, 1 failed\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/870b71319f3124d959cf3da20f177e5c/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x496797e -Z50409cc60fbe70b8 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 09:01:45 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 09:02:00 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 07:02:00.273682+00:00\r\n\r\n'
+2025-07-25 09:02:16 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 07:02:16.322205+00:00\r\n\r\n'
+2025-07-25 09:02:25 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 09:02:25 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa745309d0>
+2025-07-25 09:02:25 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 09:02:25 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 09:02:25 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 09:02:27 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 09:02:27 DEBUG    server             _handle_request    Response sent
+2025-07-25 09:02:27 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 09:02:27 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":5,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 09:02:27 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 09:02:31 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 07:02:31.323850+00:00\r\n\r\n'
+2025-07-25 09:02:46 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 07:02:46.325808+00:00\r\n\r\n'
+2025-07-25 12:47:34 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:47:34.181829+00:00\r\n\r\n'
+2025-07-25 12:47:49 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:47:49.183325+00:00\r\n\r\n'
+2025-07-25 12:48:04 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:48:04.184512+00:00\r\n\r\n'
+2025-07-25 12:48:19 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:48:19.186041+00:00\r\n\r\n'
+2025-07-25 12:48:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:48:35.102262+00:00\r\n\r\n'
+2025-07-25 12:48:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:48:50.103780+00:00\r\n\r\n'
+2025-07-25 12:49:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:49:05.104990+00:00\r\n\r\n'
+2025-07-25 12:49:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:49:20.106189+00:00\r\n\r\n'
+2025-07-25 12:49:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:49:35.107355+00:00\r\n\r\n'
+2025-07-25 12:49:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:49:50.108405+00:00\r\n\r\n'
+2025-07-25 12:50:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:50:05.110598+00:00\r\n\r\n'
+2025-07-25 12:50:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:50:20.111457+00:00\r\n\r\n'
+2025-07-25 12:50:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:50:35.112579+00:00\r\n\r\n'
+2025-07-25 12:50:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:50:50.113644+00:00\r\n\r\n'
+2025-07-25 12:51:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:51:05.114453+00:00\r\n\r\n'
+2025-07-25 12:51:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:51:20.115416+00:00\r\n\r\n'
+2025-07-25 12:51:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:51:35.116251+00:00\r\n\r\n'
+2025-07-25 12:51:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:51:50.117430+00:00\r\n\r\n'
+2025-07-25 12:52:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:52:05.118364+00:00\r\n\r\n'
+2025-07-25 12:52:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:52:20.119500+00:00\r\n\r\n'
+2025-07-25 12:52:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:52:35.120732+00:00\r\n\r\n'
+2025-07-25 12:52:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:52:50.121388+00:00\r\n\r\n'
+2025-07-25 12:53:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:53:05.122407+00:00\r\n\r\n'
+2025-07-25 12:53:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:53:20.123332+00:00\r\n\r\n'
+2025-07-25 12:53:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:53:35.124419+00:00\r\n\r\n'
+2025-07-25 12:53:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:53:50.125211+00:00\r\n\r\n'
+2025-07-25 12:54:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:54:05.127239+00:00\r\n\r\n'
+2025-07-25 12:54:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:54:20.128404+00:00\r\n\r\n'
+2025-07-25 12:54:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:54:35.129862+00:00\r\n\r\n'
+2025-07-25 12:54:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:54:50.132318+00:00\r\n\r\n'
+2025-07-25 12:55:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:55:05.133879+00:00\r\n\r\n'
+2025-07-25 12:55:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:55:20.135848+00:00\r\n\r\n'
+2025-07-25 12:55:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:55:35.137408+00:00\r\n\r\n'
+2025-07-25 12:55:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:55:50.138930+00:00\r\n\r\n'
+2025-07-25 12:56:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:56:05.140345+00:00\r\n\r\n'
+2025-07-25 12:56:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:56:20.141714+00:00\r\n\r\n'
+2025-07-25 12:56:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:56:35.142650+00:00\r\n\r\n'
+2025-07-25 12:56:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:56:50.143442+00:00\r\n\r\n'
+2025-07-25 12:57:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:57:05.144502+00:00\r\n\r\n'
+2025-07-25 12:57:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:57:20.146668+00:00\r\n\r\n'
+2025-07-25 12:57:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:57:35.147887+00:00\r\n\r\n'
+2025-07-25 12:57:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:57:50.150466+00:00\r\n\r\n'
+2025-07-25 12:58:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:58:05.151396+00:00\r\n\r\n'
+2025-07-25 12:58:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:58:20.152908+00:00\r\n\r\n'
+2025-07-25 12:58:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:58:35.154454+00:00\r\n\r\n'
+2025-07-25 12:58:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:58:50.155413+00:00\r\n\r\n'
+2025-07-25 12:59:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:59:05.156424+00:00\r\n\r\n'
+2025-07-25 12:59:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:59:20.158684+00:00\r\n\r\n'
+2025-07-25 12:59:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:59:35.159492+00:00\r\n\r\n'
+2025-07-25 12:59:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 10:59:50.160019+00:00\r\n\r\n'
+2025-07-25 13:00:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:00:05.162130+00:00\r\n\r\n'
+2025-07-25 13:00:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:00:20.163574+00:00\r\n\r\n'
+2025-07-25 13:00:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:00:35.164784+00:00\r\n\r\n'
+2025-07-25 13:00:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:00:50.166648+00:00\r\n\r\n'
+2025-07-25 13:01:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:01:05.168093+00:00\r\n\r\n'
+2025-07-25 13:01:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:01:20.169327+00:00\r\n\r\n'
+2025-07-25 13:01:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:01:35.171037+00:00\r\n\r\n'
+2025-07-25 13:01:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:01:50.172095+00:00\r\n\r\n'
+2025-07-25 13:01:59 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:01:59 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa744df9b0>
+2025-07-25 13:01:59 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:01:59 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:01:59 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:02:02 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 13:02:02 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:02:02 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:02:02 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":6,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 13:02:02 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:02:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:02:05.173237+00:00\r\n\r\n'
+2025-07-25 13:02:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:02:20.174047+00:00\r\n\r\n'
+2025-07-25 13:02:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:02:35.175232+00:00\r\n\r\n'
+2025-07-25 13:02:38 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:02:38 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa7452dae0>
+2025-07-25 13:02:38 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:02:38 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:02:38 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:02:38 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 2 errors
+tests/turn_test.zig:26:23: error: struct 'actions.move.Move' has no member named 'createAction'
+    move1_ptr.* = Move.createAction(Coord.init(1, 0), Coord.init(2, 0));
+                  ~~~~^~~~~~~~~~~~~
+src/actions/move.zig:13:18: note: struct declared here
+pub const Move = struct {
+                 ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:8:17
+tests/turn_test.zig:82:23: error: struct 'actions.move.Move' has no member named 'createAction'
+    move1_ptr.* = Move.createAction(Coord.init(1, 0), Coord.init(2, 0));
+                  ~~~~^~~~~~~~~~~~~
+src/actions/move.zig:13:18: note: struct declared here
+pub const Move = struct {
+                 ^~~~~~
+error: the following command failed with 2 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 2 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/870b71319f3124d959cf3da20f177e5c/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x534741cf -Zbb98e159e2b6579e test
+
+2025-07-25 13:02:38 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:02:38 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:02:38 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":7,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 2 errors\\ntests/turn_test.zig:26:23: error: struct \'actions.move.Move\' has no member named \'createAction\'\\n    move1_ptr.* = Move.createAction(Coord.init(1, 0), Coord.init(2, 0));\\n                  ~~~~^~~~~~~~~~~~~\\nsrc/actions/move.zig:13:18: note: struct declared here\\npub const Move = struct {\\n                 ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:8:17\\ntests/turn_test.zig:82:23: error: struct \'actions.move.Move\' has no member named \'createAction\'\\n    move1_ptr.* = Move.createAction(Coord.init(1, 0), Coord.init(2, 0));\\n                  ~~~~^~~~~~~~~~~~~\\nsrc/actions/move.zig:13:18: note: struct declared here\\npub const Move = struct {\\n                 ^~~~~~\\nerror: the following command failed with 2 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 2 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/870b71319f3124d959cf3da20f177e5c/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x534741cf -Zbb98e159e2b6579e test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:02:38 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:02:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:02:50.176473+00:00\r\n\r\n'
+2025-07-25 13:03:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:03:05.177946+00:00\r\n\r\n'
+2025-07-25 13:03:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:03:20.179323+00:00\r\n\r\n'
+2025-07-25 13:03:32 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:03:32 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa7452cc00>
+2025-07-25 13:03:32 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:03:32 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:03:32 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:03:35 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 13:03:35 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:03:35 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:03:35 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":8,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 13:03:35 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:03:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:03:35.180368+00:00\r\n\r\n'
+2025-07-25 13:03:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:03:50.181118+00:00\r\n\r\n'
+2025-07-25 13:04:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:04:05.182105+00:00\r\n\r\n'
+2025-07-25 13:04:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:04:20.183114+00:00\r\n\r\n'
+2025-07-25 13:04:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:04:35.184223+00:00\r\n\r\n'
+2025-07-25 13:04:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:04:50.184861+00:00\r\n\r\n'
+2025-07-25 13:05:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:05:05.185548+00:00\r\n\r\n'
+2025-07-25 13:05:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:05:20.186490+00:00\r\n\r\n'
+2025-07-25 13:05:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:05:35.187482+00:00\r\n\r\n'
+2025-07-25 13:05:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:05:50.188331+00:00\r\n\r\n'
+2025-07-25 13:06:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:06:05.189920+00:00\r\n\r\n'
+2025-07-25 13:06:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:06:20.191052+00:00\r\n\r\n'
+2025-07-25 13:06:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:06:35.192454+00:00\r\n\r\n'
+2025-07-25 13:06:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:06:50.194284+00:00\r\n\r\n'
+2025-07-25 13:07:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:07:05.195848+00:00\r\n\r\n'
+2025-07-25 13:07:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:07:20.197427+00:00\r\n\r\n'
+2025-07-25 13:07:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:07:35.198627+00:00\r\n\r\n'
+2025-07-25 13:07:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:07:50.199563+00:00\r\n\r\n'
+2025-07-25 13:08:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:08:05.200832+00:00\r\n\r\n'
+2025-07-25 13:08:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:08:20.202221+00:00\r\n\r\n'
+2025-07-25 13:08:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:08:35.204179+00:00\r\n\r\n'
+2025-07-25 13:08:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:08:50.205665+00:00\r\n\r\n'
+2025-07-25 13:09:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:09:05.206705+00:00\r\n\r\n'
+2025-07-25 13:09:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:09:20.209501+00:00\r\n\r\n'
+2025-07-25 13:09:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:09:35.210468+00:00\r\n\r\n'
+2025-07-25 13:09:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:09:50.212093+00:00\r\n\r\n'
+2025-07-25 13:10:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:10:05.212923+00:00\r\n\r\n'
+2025-07-25 13:10:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:10:20.214520+00:00\r\n\r\n'
+2025-07-25 13:10:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:10:35.215948+00:00\r\n\r\n'
+2025-07-25 13:10:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:10:50.217255+00:00\r\n\r\n'
+2025-07-25 13:11:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:11:05.218642+00:00\r\n\r\n'
+2025-07-25 13:11:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:11:20.219472+00:00\r\n\r\n'
+2025-07-25 13:11:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:11:35.220712+00:00\r\n\r\n'
+2025-07-25 13:11:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:11:50.222165+00:00\r\n\r\n'
+2025-07-25 13:12:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:12:05.223259+00:00\r\n\r\n'
+2025-07-25 13:12:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:12:20.225665+00:00\r\n\r\n'
+2025-07-25 13:12:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:12:35.227407+00:00\r\n\r\n'
+2025-07-25 13:12:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:12:50.228848+00:00\r\n\r\n'
+2025-07-25 13:13:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:13:05.229481+00:00\r\n\r\n'
+2025-07-25 13:13:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:13:20.230807+00:00\r\n\r\n'
+2025-07-25 13:13:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:13:35.232232+00:00\r\n\r\n'
+2025-07-25 13:13:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:13:50.233474+00:00\r\n\r\n'
+2025-07-25 13:14:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:14:05.234420+00:00\r\n\r\n'
+2025-07-25 13:14:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:14:20.236004+00:00\r\n\r\n'
+2025-07-25 13:14:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:14:35.237253+00:00\r\n\r\n'
+2025-07-25 13:14:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:14:50.238363+00:00\r\n\r\n'
+2025-07-25 13:15:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:15:05.239254+00:00\r\n\r\n'
+2025-07-25 13:15:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:15:20.240468+00:00\r\n\r\n'
+2025-07-25 13:15:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:15:35.241960+00:00\r\n\r\n'
+2025-07-25 13:15:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:15:50.243376+00:00\r\n\r\n'
+2025-07-25 13:16:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:16:05.244467+00:00\r\n\r\n'
+2025-07-25 13:16:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:16:20.246053+00:00\r\n\r\n'
+2025-07-25 13:16:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:16:35.247123+00:00\r\n\r\n'
+2025-07-25 13:16:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:16:50.248766+00:00\r\n\r\n'
+2025-07-25 13:17:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:17:05.249895+00:00\r\n\r\n'
+2025-07-25 13:17:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:17:20.250597+00:00\r\n\r\n'
+2025-07-25 13:17:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:17:35.252041+00:00\r\n\r\n'
+2025-07-25 13:17:38 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:17:38 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74560650>
+2025-07-25 13:17:38 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:17:38 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:17:38 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:17:47 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 13:17:47 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:17:47 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:17:47 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":9,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 13:17:47 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:17:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:17:50.253218+00:00\r\n\r\n'
+2025-07-25 13:18:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:18:05.254489+00:00\r\n\r\n'
+2025-07-25 13:18:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:18:20.255925+00:00\r\n\r\n'
+2025-07-25 13:18:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:18:35.257368+00:00\r\n\r\n'
+2025-07-25 13:18:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:18:50.258649+00:00\r\n\r\n'
+2025-07-25 13:19:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:19:05.260023+00:00\r\n\r\n'
+2025-07-25 13:19:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:19:20.261428+00:00\r\n\r\n'
+2025-07-25 13:19:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:19:35.263062+00:00\r\n\r\n'
+2025-07-25 13:19:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:19:50.264375+00:00\r\n\r\n'
+2025-07-25 13:20:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:20:05.265235+00:00\r\n\r\n'
+2025-07-25 13:20:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:20:20.266654+00:00\r\n\r\n'
+2025-07-25 13:20:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:20:35.267385+00:00\r\n\r\n'
+2025-07-25 13:20:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:20:50.269849+00:00\r\n\r\n'
+2025-07-25 13:21:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:21:05.271026+00:00\r\n\r\n'
+2025-07-25 13:21:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:21:20.271967+00:00\r\n\r\n'
+2025-07-25 13:21:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:21:35.273299+00:00\r\n\r\n'
+2025-07-25 13:21:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:21:50.274133+00:00\r\n\r\n'
+2025-07-25 13:22:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:22:05.275326+00:00\r\n\r\n'
+2025-07-25 13:22:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:22:20.276273+00:00\r\n\r\n'
+2025-07-25 13:22:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:22:35.277589+00:00\r\n\r\n'
+2025-07-25 13:22:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:22:50.278238+00:00\r\n\r\n'
+2025-07-25 13:23:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:23:05.279053+00:00\r\n\r\n'
+2025-07-25 13:23:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:23:20.279840+00:00\r\n\r\n'
+2025-07-25 13:23:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:23:35.280919+00:00\r\n\r\n'
+2025-07-25 13:23:42 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:23:42 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74560b50>
+2025-07-25 13:23:42 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:23:42 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:23:42 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:23:42 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 10 errors
+tests/action_test.zig:44:41: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_at_start.?.piece_type == .pawn);
+                                        ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:115:38: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_at_e4.?.piece_type == .pawn);
+                                     ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:170:44: error: expected 3 argument(s), found 2
+        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));
+                                      ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/actions/move.zig:85:45: error: expected 3 argument(s), found 2
+                const promoted_piece = Piece.init(promo_type, piece.color);
+                                       ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/board_test.zig:27:29: error: expected 3 argument(s), found 2
+    const white_king = Piece.init(.king, .white);
+                       ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+referenced by:
+    test_0: tests/tests.zig:4:17
+tests/board_test.zig:54:40: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(white_rook_a1.?.piece_type == .rook);
+                                       ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/board_test.zig:112:44: error: expected 3 argument(s), found 2
+    _ = original_board.setPiece(2, 2, Piece.init(.amazon, .white));
+                                      ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/gamestate_test.zig:96:41: error: expected 3 argument(s), found 2
+    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white));
+                                   ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/gamestate_test.zig:393:51: error: expected 3 argument(s), found 2
+    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white));
+                                             ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/piece.zig:25:33: error: incompatible types: 'piece.PieceType' and 'piece.PieceColor'
+            .piece = piece_type + color,
+                     ~~~~~~~~~~~^~~~~~~
+src/piece.zig:25:22: note: type 'piece.PieceType' here
+            .piece = piece_type + color,
+                     ^~~~~~~~~~
+src/piece.zig:25:35: note: type 'piece.PieceColor' here
+            .piece = piece_type + color,
+                                  ^~~~~
+error: the following command failed with 10 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 10 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xec31c57d -Ze431c78fe4fc3945 test
+
+2025-07-25 13:23:42 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:23:42 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:23:42 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":10,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 10 errors\\ntests/action_test.zig:44:41: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_at_start.?.piece_type == .pawn);\\n                                        ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:115:38: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_at_e4.?.piece_type == .pawn);\\n                                     ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:170:44: error: expected 3 argument(s), found 2\\n        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));\\n                                      ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nsrc/actions/move.zig:85:45: error: expected 3 argument(s), found 2\\n                const promoted_piece = Piece.init(promo_type, piece.color);\\n                                       ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/board_test.zig:27:29: error: expected 3 argument(s), found 2\\n    const white_king = Piece.init(.king, .white);\\n                       ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:4:17\\ntests/board_test.zig:54:40: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(white_rook_a1.?.piece_type == .rook);\\n                                       ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/board_test.zig:112:44: error: expected 3 argument(s), found 2\\n    _ = original_board.setPiece(2, 2, Piece.init(.amazon, .white));\\n                                      ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/gamestate_test.zig:96:41: error: expected 3 argument(s), found 2\\n    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white));\\n                                   ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/gamestate_test.zig:393:51: error: expected 3 argument(s), found 2\\n    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white));\\n                                             ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nsrc/piece.zig:25:33: error: incompatible types: \'piece.PieceType\' and \'piece.PieceColor\'\\n            .piece = piece_type + color,\\n                     ~~~~~~~~~~~^~~~~~~\\nsrc/piece.zig:25:22: note: type \'piece.PieceType\' here\\n            .piece = piece_type + color,\\n                     ^~~~~~~~~~\\nsrc/piece.zig:25:35: note: type \'piece.PieceColor\' here\\n            .piece = piece_type + color,\\n                                  ^~~~~\\nerror: the following command failed with 10 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 10 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xec31c57d -Ze431c78fe4fc3945 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:23:42 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:23:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:23:50.281761+00:00\r\n\r\n'
+2025-07-25 13:24:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:24:05.282607+00:00\r\n\r\n'
+2025-07-25 13:24:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:24:20.284581+00:00\r\n\r\n'
+2025-07-25 13:24:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:24:35.285435+00:00\r\n\r\n'
+2025-07-25 13:24:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:24:50.286462+00:00\r\n\r\n'
+2025-07-25 13:25:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:25:05.287099+00:00\r\n\r\n'
+2025-07-25 13:25:06 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:25:06 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74509040>
+2025-07-25 13:25:06 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:25:06 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:25:06 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:25:06 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 9 errors
+tests/action_test.zig:44:41: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_at_start.?.piece_type == .pawn);
+                                        ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:115:38: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_at_e4.?.piece_type == .pawn);
+                                     ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:170:44: error: expected 3 argument(s), found 2
+        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));
+                                      ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/actions/move.zig:85:45: error: expected 3 argument(s), found 2
+                const promoted_piece = Piece.init(promo_type, piece.color);
+                                       ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/board_test.zig:27:29: error: expected 3 argument(s), found 2
+    const white_king = Piece.init(.king, .white);
+                       ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+referenced by:
+    test_0: tests/tests.zig:4:17
+tests/board_test.zig:54:40: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(white_rook_a1.?.piece_type == .rook);
+                                       ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/board_test.zig:112:44: error: expected 3 argument(s), found 2
+    _ = original_board.setPiece(2, 2, Piece.init(.amazon, .white));
+                                      ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/gamestate_test.zig:96:41: error: expected 3 argument(s), found 2
+    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white));
+                                   ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/gamestate_test.zig:393:51: error: expected 3 argument(s), found 2
+    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white));
+                                             ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+error: the following command failed with 9 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 9 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x17420589 -Z3cf431cbbad2ff10 test
+
+2025-07-25 13:25:06 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:25:06 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:25:06 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":11,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 9 errors\\ntests/action_test.zig:44:41: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_at_start.?.piece_type == .pawn);\\n                                        ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:115:38: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_at_e4.?.piece_type == .pawn);\\n                                     ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:170:44: error: expected 3 argument(s), found 2\\n        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));\\n                                      ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nsrc/actions/move.zig:85:45: error: expected 3 argument(s), found 2\\n                const promoted_piece = Piece.init(promo_type, piece.color);\\n                                       ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/board_test.zig:27:29: error: expected 3 argument(s), found 2\\n    const white_king = Piece.init(.king, .white);\\n                       ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:4:17\\ntests/board_test.zig:54:40: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(white_rook_a1.?.piece_type == .rook);\\n                                       ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/board_test.zig:112:44: error: expected 3 argument(s), found 2\\n    _ = original_board.setPiece(2, 2, Piece.init(.amazon, .white));\\n                                      ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/gamestate_test.zig:96:41: error: expected 3 argument(s), found 2\\n    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white));\\n                                   ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/gamestate_test.zig:393:51: error: expected 3 argument(s), found 2\\n    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white));\\n                                             ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nerror: the following command failed with 9 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 9 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x17420589 -Z3cf431cbbad2ff10 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:25:06 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:25:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:25:20.288624+00:00\r\n\r\n'
+2025-07-25 13:25:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:25:35.290091+00:00\r\n\r\n'
+2025-07-25 13:25:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:25:50.291191+00:00\r\n\r\n'
+2025-07-25 13:26:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:26:05.292355+00:00\r\n\r\n'
+2025-07-25 13:26:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:26:20.293659+00:00\r\n\r\n'
+2025-07-25 13:26:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:26:35.294424+00:00\r\n\r\n'
+2025-07-25 13:26:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:26:50.296066+00:00\r\n\r\n'
+2025-07-25 13:27:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:27:05.297642+00:00\r\n\r\n'
+2025-07-25 13:27:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:27:20.298602+00:00\r\n\r\n'
+2025-07-25 13:27:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:27:35.299601+00:00\r\n\r\n'
+2025-07-25 13:27:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:27:50.300775+00:00\r\n\r\n'
+2025-07-25 13:27:53 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:27:53 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74547020>
+2025-07-25 13:27:53 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:27:53 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:27:53 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:27:53 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 8 errors
+tests/action_test.zig:59:42: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_at_target.?.piece_type == .pawn);
+                                         ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:129:38: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_at_e5.?.piece_type == .pawn);
+                                     ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:183:45: error: no field named 'piece_type' in struct 'piece.Piece'
+        try testing.expect(promoted_piece.?.piece_type == .queen);
+                                            ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+src/board.zig:219:67: error: expected error union type, found 'piece.Piece'
+                    board.pieces[row][col] = try Piece.deserialize(piece_array);
+                                                 ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/gamestate_test.zig:408:41: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(promoted_piece.?.piece_type == .queen);
+                                        ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+src/piece.zig:39:42: error: expected type 'piece.PieceType', found 'u8'
+        return @as(PieceType, self.piece & 0x7F);
+                              ~~~~~~~~~~~^~~~~~
+src/piece.zig:3:23: note: enum declared here
+pub const PieceType = enum(u8) {
+                      ^~~~
+referenced by:
+    test.action demo - comprehensive move execution and undo: tests/action_test.zig:115:45
+    test_0: tests/tests.zig:6:17
+src/piece.zig:43:43: error: expected type 'piece.PieceColor', found 'u8'
+        return @as(PieceColor, self.piece & 0x80);
+                               ~~~~~~~~~~~^~~~~~
+src/piece.zig:14:24: note: enum declared here
+pub const PieceColor = enum(u8) {
+                       ^~~~
+src/piece.zig:51:41: error: expected enum or tagged union, found 'u8'
+        return [2]u32{ @intFromEnum(self.piece), self.id };
+                                    ~~~~^~~~~~
+error: the following command failed with 8 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 8 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xec25baa1 -Z163cc16bcc149300 test
+
+2025-07-25 13:27:53 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:27:53 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:27:53 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":12,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 8 errors\\ntests/action_test.zig:59:42: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_at_target.?.piece_type == .pawn);\\n                                         ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:129:38: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_at_e5.?.piece_type == .pawn);\\n                                     ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:183:45: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n        try testing.expect(promoted_piece.?.piece_type == .queen);\\n                                            ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nsrc/board.zig:219:67: error: expected error union type, found \'piece.Piece\'\\n                    board.pieces[row][col] = try Piece.deserialize(piece_array);\\n                                                 ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/gamestate_test.zig:408:41: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(promoted_piece.?.piece_type == .queen);\\n                                        ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nsrc/piece.zig:39:42: error: expected type \'piece.PieceType\', found \'u8\'\\n        return @as(PieceType, self.piece & 0x7F);\\n                              ~~~~~~~~~~~^~~~~~\\nsrc/piece.zig:3:23: note: enum declared here\\npub const PieceType = enum(u8) {\\n                      ^~~~\\nreferenced by:\\n    test.action demo - comprehensive move execution and undo: tests/action_test.zig:115:45\\n    test_0: tests/tests.zig:6:17\\nsrc/piece.zig:43:43: error: expected type \'piece.PieceColor\', found \'u8\'\\n        return @as(PieceColor, self.piece & 0x80);\\n                               ~~~~~~~~~~~^~~~~~\\nsrc/piece.zig:14:24: note: enum declared here\\npub const PieceColor = enum(u8) {\\n                       ^~~~\\nsrc/piece.zig:51:41: error: expected enum or tagged union, found \'u8\'\\n        return [2]u32{ @intFromEnum(self.piece), self.id };\\n                                    ~~~~^~~~~~\\nerror: the following command failed with 8 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 8 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xec25baa1 -Z163cc16bcc149300 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:27:53 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:28:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:28:05.301680+00:00\r\n\r\n'
+2025-07-25 13:28:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:28:20.302941+00:00\r\n\r\n'
+2025-07-25 13:28:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:28:35.304087+00:00\r\n\r\n'
+2025-07-25 13:28:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:28:50.305225+00:00\r\n\r\n'
+2025-07-25 13:29:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:29:05.306033+00:00\r\n\r\n'
+2025-07-25 13:29:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:29:20.308261+00:00\r\n\r\n'
+2025-07-25 13:29:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:29:35.309631+00:00\r\n\r\n'
+2025-07-25 13:29:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:29:50.311199+00:00\r\n\r\n'
+2025-07-25 13:29:53 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:29:53 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa7454fa10>
+2025-07-25 13:29:53 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:29:53 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:29:53 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:29:54 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 5 errors
+tests/action_test.zig:76:46: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_back_at_start.?.piece_type == .pawn);
+                                             ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+tests/action_test.zig:141:43: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_back_at_e7.?.piece_type == .pawn);
+                                          ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/action_test.zig:201:45: error: no field named 'piece_type' in struct 'piece.Piece'
+        try testing.expect(restored_piece.?.piece_type == .pawn);
+                                            ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/gamestate_test.zig:113:40: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(original_king.?.piece_type == deserialized_king.?.piece_type);
+                                       ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+tests/gamestate_test.zig:420:41: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(restored_piece.?.piece_type == .pawn);
+                                        ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+error: the following command failed with 5 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 5 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x7f88c6a0 -Zf37dd9c4f99f9345 test
+
+2025-07-25 13:29:54 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:29:54 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:29:54 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":13,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 5 errors\\ntests/action_test.zig:76:46: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_back_at_start.?.piece_type == .pawn);\\n                                             ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\ntests/action_test.zig:141:43: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_back_at_e7.?.piece_type == .pawn);\\n                                          ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/action_test.zig:201:45: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n        try testing.expect(restored_piece.?.piece_type == .pawn);\\n                                            ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/gamestate_test.zig:113:40: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(original_king.?.piece_type == deserialized_king.?.piece_type);\\n                                       ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\ntests/gamestate_test.zig:420:41: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(restored_piece.?.piece_type == .pawn);\\n                                        ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nerror: the following command failed with 5 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 5 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x7f88c6a0 -Zf37dd9c4f99f9345 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:29:54 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:30:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:30:05.312013+00:00\r\n\r\n'
+2025-07-25 13:30:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:30:20.313101+00:00\r\n\r\n'
+2025-07-25 13:30:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:30:35.314446+00:00\r\n\r\n'
+2025-07-25 13:30:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:30:50.315483+00:00\r\n\r\n'
+2025-07-25 13:30:59 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:30:59 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74588050>
+2025-07-25 13:30:59 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:30:59 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:30:59 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:30:59 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 3 errors
+tests/action_test.zig:152:43: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(piece_back_at_e2.?.piece_type == .pawn);
+                                          ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+tests/action_test.zig:212:44: error: expected 3 argument(s), found 2
+        _ = game_board.setPiece(1, 3, Piece.init(.pawn, .black));
+                                      ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+tests/gamestate_test.zig:121:42: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(original_amazon.?.piece_type == .amazon);
+                                         ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+error: the following command failed with 3 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 3 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x796152ec -Zdd2e7c2f421579ee test
+
+2025-07-25 13:30:59 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:30:59 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:30:59 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":14,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 3 errors\\ntests/action_test.zig:152:43: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(piece_back_at_e2.?.piece_type == .pawn);\\n                                          ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\ntests/action_test.zig:212:44: error: expected 3 argument(s), found 2\\n        _ = game_board.setPiece(1, 3, Piece.init(.pawn, .black));\\n                                      ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ntests/gamestate_test.zig:121:42: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(original_amazon.?.piece_type == .amazon);\\n                                         ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nerror: the following command failed with 3 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 3 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x796152ec -Zdd2e7c2f421579ee test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:30:59 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:31:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:31:05.316906+00:00\r\n\r\n'
+2025-07-25 13:31:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:31:20.317863+00:00\r\n\r\n'
+2025-07-25 13:31:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:31:35.318704+00:00\r\n\r\n'
+2025-07-25 13:31:40 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:31:40 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74526820>
+2025-07-25 13:31:40 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:31:40 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:31:40 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:31:40 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 2 errors
+tests/action_test.zig:225:45: error: no field named 'piece_type' in struct 'piece.Piece'
+        try testing.expect(promoted_piece.?.piece_type == .amazon);
+                                            ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+tests/gamestate_test.zig:133:40: error: no field named 'piece_type' in struct 'piece.Piece'
+    try testing.expect(original_pawn.?.piece_type == .pawn);
+                                       ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+error: the following command failed with 2 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 2 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xeef249a3 -Z1bd653a1294a8c10 test
+
+2025-07-25 13:31:40 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:31:40 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:31:40 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":15,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 2 errors\\ntests/action_test.zig:225:45: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n        try testing.expect(promoted_piece.?.piece_type == .amazon);\\n                                            ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\ntests/gamestate_test.zig:133:40: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n    try testing.expect(original_pawn.?.piece_type == .pawn);\\n                                       ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nerror: the following command failed with 2 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 2 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xeef249a3 -Z1bd653a1294a8c10 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:31:40 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:31:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:31:50.320009+00:00\r\n\r\n'
+2025-07-25 13:32:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:32:05.320888+00:00\r\n\r\n'
+2025-07-25 13:32:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:32:20.322008+00:00\r\n\r\n'
+2025-07-25 13:32:21 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:32:21 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa744d4950>
+2025-07-25 13:32:21 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:32:21 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:32:21 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:32:21 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+tests/action_test.zig:243:45: error: no field named 'piece_type' in struct 'piece.Piece'
+        try testing.expect(restored_piece.?.piece_type == .pawn);
+                                            ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x9f47f5ef -Z943c0dc2fcfb6114 test
+
+2025-07-25 13:32:21 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:32:21 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:32:21 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":16,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\ntests/action_test.zig:243:45: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n        try testing.expect(restored_piece.?.piece_type == .pawn);\\n                                            ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x9f47f5ef -Z943c0dc2fcfb6114 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:32:21 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:32:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:32:35.323338+00:00\r\n\r\n'
+2025-07-25 13:32:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:32:50.324326+00:00\r\n\r\n'
+2025-07-25 13:32:54 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:32:54 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa744d6d50>
+2025-07-25 13:32:54 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:32:54 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:32:54 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:32:55 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+tests/action_test.zig:254:44: error: expected 3 argument(s), found 2
+        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));
+                                      ~~~~~^~~~~
+src/piece.zig:23:9: note: function declared here
+    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x74f062a6 -Za16828f8054b6d0f test
+
+2025-07-25 13:32:55 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:32:55 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:32:55 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":17,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\ntests/action_test.zig:254:44: error: expected 3 argument(s), found 2\\n        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));\\n                                      ~~~~~^~~~~\\nsrc/piece.zig:23:9: note: function declared here\\n    pub fn init(piece_type: PieceType, color: PieceColor, id: u8) Piece {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x74f062a6 -Za16828f8054b6d0f test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:32:55 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:33:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:33:05.326839+00:00\r\n\r\n'
+2025-07-25 13:33:14 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:33:14 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa746fad00>
+2025-07-25 13:33:14 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:33:14 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:33:14 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:33:14 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+tests/action_test.zig:270:45: error: no field named 'piece_type' in struct 'piece.Piece'
+        try testing.expect(promoted_piece.?.piece_type == .rook);
+                                            ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xcc397229 -Zad2afc621f2f35d0 test
+
+2025-07-25 13:33:14 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:33:14 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:33:14 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":18,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\ntests/action_test.zig:270:45: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n        try testing.expect(promoted_piece.?.piece_type == .rook);\\n                                            ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xcc397229 -Zad2afc621f2f35d0 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:33:14 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:33:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:33:20.328204+00:00\r\n\r\n'
+2025-07-25 13:33:33 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:33:33 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa746f9c80>
+2025-07-25 13:33:33 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:33:33 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:33:33 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:33:33 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+tests/action_test.zig:287:45: error: no field named 'piece_type' in struct 'piece.Piece'
+        try testing.expect(restored_piece.?.piece_type == .pawn);
+                                            ^~~~~~~~~~
+src/piece.zig:19:19: note: struct declared here
+pub const Piece = struct {
+                  ^~~~~~
+referenced by:
+    test_0: tests/tests.zig:6:17
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x445d5c75 -Zbc3ea17456cb2323 test
+
+2025-07-25 13:33:33 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:33:33 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:33:33 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":19,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\ntests/action_test.zig:287:45: error: no field named \'piece_type\' in struct \'piece.Piece\'\\n        try testing.expect(restored_piece.?.piece_type == .pawn);\\n                                            ^~~~~~~~~~\\nsrc/piece.zig:19:19: note: struct declared here\\npub const Piece = struct {\\n                  ^~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:6:17\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x445d5c75 -Zbc3ea17456cb2323 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 13:33:33 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:33:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:33:35.329219+00:00\r\n\r\n'
+2025-07-25 13:33:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:33:50.330592+00:00\r\n\r\n'
+2025-07-25 13:33:51 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:33:51 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa7450edf0>
+2025-07-25 13:33:51 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:33:51 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:33:51 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:33:54 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 13:33:54 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:33:54 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:33:54 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":20,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 13:33:54 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:33:59 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 13:33:59 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa7450e3f0>
+2025-07-25 13:33:59 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 13:33:59 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 13:33:59 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 13:33:59 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 13:33:59 DEBUG    server             _handle_request    Response sent
+2025-07-25 13:33:59 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 13:33:59 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":21,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 13:33:59 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 13:34:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:34:05.331400+00:00\r\n\r\n'
+2025-07-25 13:34:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:34:20.333838+00:00\r\n\r\n'
+2025-07-25 13:34:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:34:35.335039+00:00\r\n\r\n'
+2025-07-25 13:34:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:34:50.336451+00:00\r\n\r\n'
+2025-07-25 13:35:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:35:05.337454+00:00\r\n\r\n'
+2025-07-25 13:35:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:35:20.338398+00:00\r\n\r\n'
+2025-07-25 13:35:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:35:35.339234+00:00\r\n\r\n'
+2025-07-25 13:35:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:35:50.340588+00:00\r\n\r\n'
+2025-07-25 13:36:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:36:05.341481+00:00\r\n\r\n'
+2025-07-25 13:36:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:36:20.342235+00:00\r\n\r\n'
+2025-07-25 13:36:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:36:35.343168+00:00\r\n\r\n'
+2025-07-25 13:36:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:36:50.344008+00:00\r\n\r\n'
+2025-07-25 13:37:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:37:05.345309+00:00\r\n\r\n'
+2025-07-25 13:37:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:37:20.346515+00:00\r\n\r\n'
+2025-07-25 13:37:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:37:35.347367+00:00\r\n\r\n'
+2025-07-25 13:37:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:37:50.348792+00:00\r\n\r\n'
+2025-07-25 13:38:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:38:05.350603+00:00\r\n\r\n'
+2025-07-25 13:38:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:38:20.351748+00:00\r\n\r\n'
+2025-07-25 13:38:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:38:35.353204+00:00\r\n\r\n'
+2025-07-25 13:38:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:38:50.355420+00:00\r\n\r\n'
+2025-07-25 13:39:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:39:05.356837+00:00\r\n\r\n'
+2025-07-25 13:39:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:39:20.357790+00:00\r\n\r\n'
+2025-07-25 13:39:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:39:35.358204+00:00\r\n\r\n'
+2025-07-25 13:39:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:39:50.359551+00:00\r\n\r\n'
+2025-07-25 13:40:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:40:05.361671+00:00\r\n\r\n'
+2025-07-25 13:40:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:40:20.362585+00:00\r\n\r\n'
+2025-07-25 13:40:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:40:35.363835+00:00\r\n\r\n'
+2025-07-25 13:40:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:40:50.365101+00:00\r\n\r\n'
+2025-07-25 13:41:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:41:05.366900+00:00\r\n\r\n'
+2025-07-25 13:41:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:41:20.367846+00:00\r\n\r\n'
+2025-07-25 13:41:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:41:35.369805+00:00\r\n\r\n'
+2025-07-25 13:41:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:41:50.370997+00:00\r\n\r\n'
+2025-07-25 13:42:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:42:05.371687+00:00\r\n\r\n'
+2025-07-25 13:42:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:42:20.372361+00:00\r\n\r\n'
+2025-07-25 13:42:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:42:35.373280+00:00\r\n\r\n'
+2025-07-25 13:42:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:42:50.374131+00:00\r\n\r\n'
+2025-07-25 13:43:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:43:05.376128+00:00\r\n\r\n'
+2025-07-25 13:43:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:43:20.378181+00:00\r\n\r\n'
+2025-07-25 13:43:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:43:35.379600+00:00\r\n\r\n'
+2025-07-25 13:43:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:43:50.380645+00:00\r\n\r\n'
+2025-07-25 13:44:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:44:05.381551+00:00\r\n\r\n'
+2025-07-25 13:44:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:44:20.382350+00:00\r\n\r\n'
+2025-07-25 13:44:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:44:35.384858+00:00\r\n\r\n'
+2025-07-25 13:44:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:44:50.386185+00:00\r\n\r\n'
+2025-07-25 13:45:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:45:05.386818+00:00\r\n\r\n'
+2025-07-25 13:45:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:45:20.387783+00:00\r\n\r\n'
+2025-07-25 13:45:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:45:35.389364+00:00\r\n\r\n'
+2025-07-25 13:45:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:45:50.390499+00:00\r\n\r\n'
+2025-07-25 13:46:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:46:05.391595+00:00\r\n\r\n'
+2025-07-25 13:46:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:46:20.392822+00:00\r\n\r\n'
+2025-07-25 13:46:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:46:35.395180+00:00\r\n\r\n'
+2025-07-25 13:46:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:46:50.396159+00:00\r\n\r\n'
+2025-07-25 13:47:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:47:05.397573+00:00\r\n\r\n'
+2025-07-25 13:47:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:47:20.398546+00:00\r\n\r\n'
+2025-07-25 13:47:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:47:35.399185+00:00\r\n\r\n'
+2025-07-25 13:47:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:47:50.400577+00:00\r\n\r\n'
+2025-07-25 13:48:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:48:05.401389+00:00\r\n\r\n'
+2025-07-25 13:48:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:48:20.402026+00:00\r\n\r\n'
+2025-07-25 13:48:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:48:35.402919+00:00\r\n\r\n'
+2025-07-25 13:48:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:48:50.403762+00:00\r\n\r\n'
+2025-07-25 13:49:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:49:05.404559+00:00\r\n\r\n'
+2025-07-25 13:49:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:49:20.405461+00:00\r\n\r\n'
+2025-07-25 13:49:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:49:35.406574+00:00\r\n\r\n'
+2025-07-25 13:49:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:49:50.407657+00:00\r\n\r\n'
+2025-07-25 13:50:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:50:05.408249+00:00\r\n\r\n'
+2025-07-25 13:50:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:50:20.409108+00:00\r\n\r\n'
+2025-07-25 13:50:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:50:35.409671+00:00\r\n\r\n'
+2025-07-25 13:50:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:50:50.410308+00:00\r\n\r\n'
+2025-07-25 13:51:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:51:05.412028+00:00\r\n\r\n'
+2025-07-25 13:51:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:51:20.412674+00:00\r\n\r\n'
+2025-07-25 13:51:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:51:35.414560+00:00\r\n\r\n'
+2025-07-25 13:51:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:51:50.416072+00:00\r\n\r\n'
+2025-07-25 13:52:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:52:05.418512+00:00\r\n\r\n'
+2025-07-25 13:52:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:52:20.419544+00:00\r\n\r\n'
+2025-07-25 13:52:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:52:35.420336+00:00\r\n\r\n'
+2025-07-25 13:52:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:52:50.422363+00:00\r\n\r\n'
+2025-07-25 13:53:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:53:05.423379+00:00\r\n\r\n'
+2025-07-25 13:53:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:53:20.424582+00:00\r\n\r\n'
+2025-07-25 13:53:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:53:35.426200+00:00\r\n\r\n'
+2025-07-25 13:53:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:53:50.427711+00:00\r\n\r\n'
+2025-07-25 13:54:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:54:05.429212+00:00\r\n\r\n'
+2025-07-25 13:54:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:54:20.430586+00:00\r\n\r\n'
+2025-07-25 13:54:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:54:35.431908+00:00\r\n\r\n'
+2025-07-25 13:54:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:54:50.433212+00:00\r\n\r\n'
+2025-07-25 13:55:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:55:05.434687+00:00\r\n\r\n'
+2025-07-25 13:55:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:55:20.436096+00:00\r\n\r\n'
+2025-07-25 13:55:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:55:35.437246+00:00\r\n\r\n'
+2025-07-25 13:55:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:55:50.438406+00:00\r\n\r\n'
+2025-07-25 13:56:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:56:05.439493+00:00\r\n\r\n'
+2025-07-25 13:56:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:56:20.440641+00:00\r\n\r\n'
+2025-07-25 13:56:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:56:35.442045+00:00\r\n\r\n'
+2025-07-25 13:56:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:56:50.443466+00:00\r\n\r\n'
+2025-07-25 13:57:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:57:05.444688+00:00\r\n\r\n'
+2025-07-25 13:57:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:57:20.445845+00:00\r\n\r\n'
+2025-07-25 13:57:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:57:35.447881+00:00\r\n\r\n'
+2025-07-25 13:57:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:57:50.448743+00:00\r\n\r\n'
+2025-07-25 13:58:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:58:05.450076+00:00\r\n\r\n'
+2025-07-25 13:58:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:58:20.452088+00:00\r\n\r\n'
+2025-07-25 13:58:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:58:35.453219+00:00\r\n\r\n'
+2025-07-25 13:58:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:58:50.454108+00:00\r\n\r\n'
+2025-07-25 13:59:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:59:05.454754+00:00\r\n\r\n'
+2025-07-25 13:59:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:59:20.456977+00:00\r\n\r\n'
+2025-07-25 13:59:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:59:35.457824+00:00\r\n\r\n'
+2025-07-25 13:59:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 11:59:50.458997+00:00\r\n\r\n'
+2025-07-25 14:00:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:00:05.460919+00:00\r\n\r\n'
+2025-07-25 14:00:20 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:00:20.462072+00:00\r\n\r\n'
+2025-07-25 14:00:35 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:00:35.463633+00:00\r\n\r\n'
+2025-07-25 14:00:50 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:00:50.465084+00:00\r\n\r\n'
+2025-07-25 14:01:05 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:01:05.467254+00:00\r\n\r\n'
+2025-07-25 14:01:06 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:01:06 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa7450e850>
+2025-07-25 14:01:06 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:01:06 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:01:06 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:01:07 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+src/piece.zig:25:47: error: expected type 'u8', found 'piece.PieceColor'
+        return (self.piece & 0x80) == @as(u8, color);
+                                              ^~~~~
+src/piece.zig:6:24: note: enum declared here
+pub const PieceColor = enum(u8) {
+                       ^~~~
+referenced by:
+    pawn_movement: src/pieces/movement.zig:115:42
+    movement_functions: src/pieces/movement.zig:19:5
+    4 reference(s) hidden; use '-freference-trace=6' to see all references
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xca71c94e -Z09f7479539605547 test
+
+2025-07-25 14:01:07 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:01:07 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:01:07 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":22,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\nsrc/piece.zig:25:47: error: expected type \'u8\', found \'piece.PieceColor\'\\n        return (self.piece & 0x80) == @as(u8, color);\\n                                              ^~~~~\\nsrc/piece.zig:6:24: note: enum declared here\\npub const PieceColor = enum(u8) {\\n                       ^~~~\\nreferenced by:\\n    pawn_movement: src/pieces/movement.zig:115:42\\n    movement_functions: src/pieces/movement.zig:19:5\\n    4 reference(s) hidden; use \'-freference-trace=6\' to see all references\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0xca71c94e -Z09f7479539605547 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 14:01:07 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:01:20 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:01:20 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74572850>
+2025-07-25 14:01:20 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:01:20 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:01:20 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:01:22 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 14:01:22 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:01:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:01:22.447225+00:00\r\n\r\n'
+2025-07-25 14:01:22 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:01:22 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":23,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 14:01:22 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:01:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:01:37.447914+00:00\r\n\r\n'
+2025-07-25 14:01:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:01:52.449128+00:00\r\n\r\n'
+2025-07-25 14:02:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:02:07.450658+00:00\r\n\r\n'
+2025-07-25 14:02:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:02:22.451708+00:00\r\n\r\n'
+2025-07-25 14:02:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:02:37.452303+00:00\r\n\r\n'
+2025-07-25 14:02:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:02:52.453197+00:00\r\n\r\n'
+2025-07-25 14:03:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:03:07.454325+00:00\r\n\r\n'
+2025-07-25 14:03:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:03:22.455430+00:00\r\n\r\n'
+2025-07-25 14:03:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:03:37.456570+00:00\r\n\r\n'
+2025-07-25 14:03:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:03:52.457738+00:00\r\n\r\n'
+2025-07-25 14:04:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:04:07.459007+00:00\r\n\r\n'
+2025-07-25 14:04:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:04:22.461129+00:00\r\n\r\n'
+2025-07-25 14:04:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:04:37.462080+00:00\r\n\r\n'
+2025-07-25 14:04:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:04:52.462912+00:00\r\n\r\n'
+2025-07-25 14:05:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:05:07.463962+00:00\r\n\r\n'
+2025-07-25 14:05:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:05:22.465106+00:00\r\n\r\n'
+2025-07-25 14:05:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:05:37.466391+00:00\r\n\r\n'
+2025-07-25 14:05:45 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:05:45 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74571f90>
+2025-07-25 14:05:45 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:05:45 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:05:45 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:05:46 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+tests/renderer_test.zig:21:28: error: expected 2 argument(s), found 1
+    var renderer = Renderer.init(config);
+                   ~~~~~~~~^~~~~
+src/renderer.zig:34:9: note: function declared here
+    pub fn init(config: RendererConfig, allocator: std.mem.Allocator) Renderer {
+    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+referenced by:
+    test_0: tests/tests.zig:5:17
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x3b637c30 -Z28e7487ca855b0b3 test
+
+2025-07-25 14:05:46 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:05:46 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:05:46 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":24,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\ntests/renderer_test.zig:21:28: error: expected 2 argument(s), found 1\\n    var renderer = Renderer.init(config);\\n                   ~~~~~~~~^~~~~\\nsrc/renderer.zig:34:9: note: function declared here\\n    pub fn init(config: RendererConfig, allocator: std.mem.Allocator) Renderer {\\n    ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:5:17\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x3b637c30 -Z28e7487ca855b0b3 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 14:05:46 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:05:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:05:52.467734+00:00\r\n\r\n'
+2025-07-25 14:06:04 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:06:04 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa745709b0>
+2025-07-25 14:06:04 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:06:04 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:06:04 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:06:07 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 14:06:07 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:06:07 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:06:07 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":25,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 14:06:07 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:06:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:06:07.469479+00:00\r\n\r\n'
+2025-07-25 14:06:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:06:22.470253+00:00\r\n\r\n'
+2025-07-25 14:06:23 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:06:23 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74571310>
+2025-07-25 14:06:23 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:06:23 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:06:23 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:06:24 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 1 errors
+tests/renderer_test.zig:48:13: error: 'selectPiece' is not marked 'pub'
+    renderer.selectPiece(knight_coord, &chess_board);
+    ~~~~~~~~^~~~~~~~~~~~
+src/renderer.zig:76:5: note: declared here
+    fn selectPiece(self: *Renderer, piece_coord: Coord, board_ref: *const Board) void {
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+referenced by:
+    test_0: tests/tests.zig:5:17
+error: the following command failed with 1 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 1 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x6f465c7d -Z0cf295d282679f43 test
+
+2025-07-25 14:06:24 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:06:24 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:06:24 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":26,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 1 errors\\ntests/renderer_test.zig:48:13: error: \'selectPiece\' is not marked \'pub\'\\n    renderer.selectPiece(knight_coord, &chess_board);\\n    ~~~~~~~~^~~~~~~~~~~~\\nsrc/renderer.zig:76:5: note: declared here\\n    fn selectPiece(self: *Renderer, piece_coord: Coord, board_ref: *const Board) void {\\n    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\nreferenced by:\\n    test_0: tests/tests.zig:5:17\\nerror: the following command failed with 1 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 1 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x6f465c7d -Z0cf295d282679f43 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 14:06:24 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:06:34 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:06:34 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74571270>
+2025-07-25 14:06:34 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:06:34 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:06:34 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:06:37 INFO     zig-mcp-server     run_all_zig_tests  Zig tests passed:
+
+2025-07-25 14:06:37 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:06:37 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:06:37 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":27,"result":{"content":[{"type":"text","text":"All tests passed! "}],"isError":false}}\r\n\r\n'
+2025-07-25 14:06:37 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:06:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:06:37.471588+00:00\r\n\r\n'
+2025-07-25 14:06:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:06:52.473166+00:00\r\n\r\n'
+2025-07-25 14:07:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:07:07.473831+00:00\r\n\r\n'
+2025-07-25 14:07:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:07:22.475378+00:00\r\n\r\n'
+2025-07-25 14:07:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:07:37.476289+00:00\r\n\r\n'
+2025-07-25 14:07:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:07:52.477588+00:00\r\n\r\n'
+2025-07-25 14:08:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:08:07.478846+00:00\r\n\r\n'
+2025-07-25 14:08:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:08:22.480029+00:00\r\n\r\n'
+2025-07-25 14:08:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:08:37.482428+00:00\r\n\r\n'
+2025-07-25 14:08:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:08:52.483619+00:00\r\n\r\n'
+2025-07-25 14:09:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:09:07.484682+00:00\r\n\r\n'
+2025-07-25 14:09:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:09:22.486120+00:00\r\n\r\n'
+2025-07-25 14:09:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:09:37.487397+00:00\r\n\r\n'
+2025-07-25 14:09:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:09:52.488165+00:00\r\n\r\n'
+2025-07-25 14:10:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:10:07.489674+00:00\r\n\r\n'
+2025-07-25 14:10:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:10:22.490351+00:00\r\n\r\n'
+2025-07-25 14:10:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:10:37.491899+00:00\r\n\r\n'
+2025-07-25 14:10:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:10:52.492605+00:00\r\n\r\n'
+2025-07-25 14:11:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:11:07.493353+00:00\r\n\r\n'
+2025-07-25 14:11:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:11:22.494217+00:00\r\n\r\n'
+2025-07-25 14:11:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:11:37.495229+00:00\r\n\r\n'
+2025-07-25 14:11:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:11:52.496801+00:00\r\n\r\n'
+2025-07-25 14:12:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:12:07.497808+00:00\r\n\r\n'
+2025-07-25 14:12:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:12:22.498800+00:00\r\n\r\n'
+2025-07-25 14:12:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:12:37.499528+00:00\r\n\r\n'
+2025-07-25 14:12:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:12:52.500858+00:00\r\n\r\n'
+2025-07-25 14:13:04 DEBUG    streamable_http_manager _handle_stateful_request Session already exists, handling request directly
+2025-07-25 14:13:04 DEBUG    server             run                Received message: <mcp.shared.session.RequestResponder object at 0x7ffa74570550>
+2025-07-25 14:13:04 INFO     server             _handle_request    Processing request of type CallToolRequest
+2025-07-25 14:13:04 DEBUG    server             _handle_request    Dispatching request of type CallToolRequest
+2025-07-25 14:13:04 INFO     zig-mcp-server     run_all_zig_tests  Running Zig tests...
+2025-07-25 14:13:04 ERROR    zig-mcp-server     run_all_zig_tests  Zig tests failed:
+test
++- run test
+   +- zig test Debug native 2 errors
+src/renderer.zig:8:13: error: C import failed
+const ray = @cImport({
+            ^~~~~~~~
+src/renderer.zig:8:13: note: libc headers not available; compilation does not link against libc
+referenced by:
+    renderer.Renderer: src/renderer.zig:33:11
+    Renderer: src/renderer.zig:28:22
+    4 reference(s) hidden; use '-freference-trace=6' to see all references
+/home/jeroen/projects/zig-chess/.zig-cache/o/6770129ec0248c38427e7a8869451547/cimport.h:1:10: error: 'raylib.h' file not found
+#include <raylib.h>
+         ^
+error: the following command failed with 2 compilation errors:
+/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- 
+Build Summary: 0/3 steps succeeded; 1 failed
+test transitive failure
++- run test transitive failure
+   +- zig test Debug native 2 errors
+error: the following build command failed with exit code 1:
+/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x6032dffb -Z65611d2be9137099 test
+
+2025-07-25 14:13:04 DEBUG    server             _handle_request    Response sent
+2025-07-25 14:13:04 DEBUG    streamable_http    sse_writer         Closing SSE writer
+2025-07-25 14:13:04 DEBUG    sse                _stream_response   chunk: b'event: message\r\ndata: {"jsonrpc":"2.0","id":28,"result":{"content":[{"type":"text","text":"test\\n+- run test\\n   +- zig test Debug native 2 errors\\nsrc/renderer.zig:8:13: error: C import failed\\nconst ray = @cImport({\\n            ^~~~~~~~\\nsrc/renderer.zig:8:13: note: libc headers not available; compilation does not link against libc\\nreferenced by:\\n    renderer.Renderer: src/renderer.zig:33:11\\n    Renderer: src/renderer.zig:28:22\\n    4 reference(s) hidden; use \'-freference-trace=6\' to see all references\\n/home/jeroen/projects/zig-chess/.zig-cache/o/6770129ec0248c38427e7a8869451547/cimport.h:1:10: error: \'raylib.h\' file not found\\n#include <raylib.h>\\n         ^\\nerror: the following command failed with 2 compilation errors:\\n/home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig test -ODebug --dep root_chess -Mroot=/home/jeroen/projects/zig-chess/tests/tests.zig -ODebug -Mroot_chess=/home/jeroen/projects/zig-chess/src/root_chess.zig --cache-dir /home/jeroen/projects/zig-chess/.zig-cache --global-cache-dir /home/jeroen/.cache/zig --name test --zig-lib-dir /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib/ --listen=- \\nBuild Summary: 0/3 steps succeeded; 1 failed\\ntest transitive failure\\n+- run test transitive failure\\n   +- zig test Debug native 2 errors\\nerror: the following build command failed with exit code 1:\\n/home/jeroen/projects/zig-chess/.zig-cache/o/4478381ec0d9ed62b6178cc91b0d9ab4/build /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/zig /home/jeroen/.config/Code/User/globalStorage/ziglang.vscode-zig/zig/x86_64-linux-0.14.1/lib /home/jeroen/projects/zig-chess /home/jeroen/projects/zig-chess/.zig-cache /home/jeroen/.cache/zig --seed 0x6032dffb -Z65611d2be9137099 test\\n"}],"isError":false}}\r\n\r\n'
+2025-07-25 14:13:04 DEBUG    sse                _listen_for_disconnect Got event: http.disconnect. Stop streaming.
+2025-07-25 14:13:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:13:07.502033+00:00\r\n\r\n'
+2025-07-25 14:13:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:13:22.503088+00:00\r\n\r\n'
+2025-07-25 14:13:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:13:37.504002+00:00\r\n\r\n'
+2025-07-25 14:13:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:13:52.504940+00:00\r\n\r\n'
+2025-07-25 14:14:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:14:07.505678+00:00\r\n\r\n'
+2025-07-25 14:14:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:14:22.507160+00:00\r\n\r\n'
+2025-07-25 14:14:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:14:37.508088+00:00\r\n\r\n'
+2025-07-25 14:14:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:14:52.508855+00:00\r\n\r\n'
+2025-07-25 14:15:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:15:07.510090+00:00\r\n\r\n'
+2025-07-25 14:15:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:15:22.510885+00:00\r\n\r\n'
+2025-07-25 14:15:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:15:37.511619+00:00\r\n\r\n'
+2025-07-25 14:15:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:15:52.512522+00:00\r\n\r\n'
+2025-07-25 14:16:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:16:07.513236+00:00\r\n\r\n'
+2025-07-25 14:16:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:16:22.514556+00:00\r\n\r\n'
+2025-07-25 14:16:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:16:37.515376+00:00\r\n\r\n'
+2025-07-25 14:16:52 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:16:52.516415+00:00\r\n\r\n'
+2025-07-25 14:17:07 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:17:07.517629+00:00\r\n\r\n'
+2025-07-25 14:17:22 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:17:22.518813+00:00\r\n\r\n'
+2025-07-25 14:17:37 DEBUG    sse                _ping              ping: b': ping - 2025-07-25 12:17:37.519948+00:00\r\n\r\n'

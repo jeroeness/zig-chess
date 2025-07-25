@@ -41,8 +41,8 @@ test "action and move functionality" {
     // Test that there's a pawn at the start position
     const piece_at_start = chess_board.getPieceConst(1, 4);
     try testing.expect(piece_at_start != null);
-    try testing.expect(piece_at_start.?.piece_type == .pawn);
-    try testing.expect(piece_at_start.?.color == .white);
+    try testing.expect(piece_at_start.?.getType() == .pawn);
+    try testing.expect(piece_at_start.?.getColor() == .white);
 
     // Test that target position is empty
     try testing.expect(chess_board.isEmpty(3, 4));
@@ -56,8 +56,8 @@ test "action and move functionality" {
 
     const piece_at_target = chess_board.getPieceConst(3, 4);
     try testing.expect(piece_at_target != null);
-    try testing.expect(piece_at_target.?.piece_type == .pawn);
-    try testing.expect(piece_at_target.?.color == .white);
+    try testing.expect(piece_at_target.?.getType() == .pawn);
+    try testing.expect(piece_at_target.?.getColor() == .white);
 
     // Test move string representation
     const move_str = try move_action.toString(allocator);
@@ -73,8 +73,8 @@ test "action and move functionality" {
 
     const piece_back_at_start = chess_board.getPieceConst(1, 4);
     try testing.expect(piece_back_at_start != null);
-    try testing.expect(piece_back_at_start.?.piece_type == .pawn);
-    try testing.expect(piece_back_at_start.?.color == .white);
+    try testing.expect(piece_back_at_start.?.getType() == .pawn);
+    try testing.expect(piece_back_at_start.?.getColor() == .white);
 
     // Test cleanup
     move_action.deinit(allocator);
@@ -112,8 +112,8 @@ test "action demo - comprehensive move execution and undo" {
     try testing.expect(!game_board.isEmpty(3, 4)); // e4 should have piece
     const piece_at_e4 = game_board.getPieceConst(3, 4);
     try testing.expect(piece_at_e4 != null);
-    try testing.expect(piece_at_e4.?.piece_type == .pawn);
-    try testing.expect(piece_at_e4.?.color == .white);
+    try testing.expect(piece_at_e4.?.getType() == .pawn);
+    try testing.expect(piece_at_e4.?.getColor() == .white);
 
     // Test move 2: e7 to e5 (black pawn)
     try testing.expect(action2.execute(&game_board));
@@ -126,8 +126,8 @@ test "action demo - comprehensive move execution and undo" {
     try testing.expect(!game_board.isEmpty(4, 4)); // e5 should have piece
     const piece_at_e5 = game_board.getPieceConst(4, 4);
     try testing.expect(piece_at_e5 != null);
-    try testing.expect(piece_at_e5.?.piece_type == .pawn);
-    try testing.expect(piece_at_e5.?.color == .black);
+    try testing.expect(piece_at_e5.?.getType() == .pawn);
+    try testing.expect(piece_at_e5.?.getColor() == .black);
 
     // Test undo functionality
     // Undo move 2 first (last move first)
@@ -138,8 +138,8 @@ test "action demo - comprehensive move execution and undo" {
     try testing.expect(game_board.isEmpty(4, 4)); // e5 should be empty
     const piece_back_at_e7 = game_board.getPieceConst(6, 4);
     try testing.expect(piece_back_at_e7 != null);
-    try testing.expect(piece_back_at_e7.?.piece_type == .pawn);
-    try testing.expect(piece_back_at_e7.?.color == .black);
+    try testing.expect(piece_back_at_e7.?.getType() == .pawn);
+    try testing.expect(piece_back_at_e7.?.getColor() == .black);
 
     // Undo move 1
     try testing.expect(action1.undo(&game_board));
@@ -149,8 +149,8 @@ test "action demo - comprehensive move execution and undo" {
     try testing.expect(game_board.isEmpty(3, 4)); // e4 should be empty
     const piece_back_at_e2 = game_board.getPieceConst(1, 4);
     try testing.expect(piece_back_at_e2 != null);
-    try testing.expect(piece_back_at_e2.?.piece_type == .pawn);
-    try testing.expect(piece_back_at_e2.?.color == .white);
+    try testing.expect(piece_back_at_e2.?.getType() == .pawn);
+    try testing.expect(piece_back_at_e2.?.getColor() == .white);
 
     // Clean up
     action1.deinit(allocator);
@@ -167,7 +167,7 @@ test "pawn promotion - all piece types including amazon" {
         var game_board = Board.init();
 
         // Place a white pawn on the 7th rank (about to promote)
-        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));
+        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white, 1));
 
         // Create a promotion move from e7 to e8, promoting to queen
         var promotion_move = Move.initFromCoordsWithPromotion(6, 4, 7, 4, .queen);
@@ -180,8 +180,8 @@ test "pawn promotion - all piece types including amazon" {
         // Verify the promoted piece
         const promoted_piece = game_board.getPieceConst(7, 4);
         try testing.expect(promoted_piece != null);
-        try testing.expect(promoted_piece.?.piece_type == .queen);
-        try testing.expect(promoted_piece.?.color == .white);
+        try testing.expect(promoted_piece.?.getType() == .queen);
+        try testing.expect(promoted_piece.?.getColor() == .white);
 
         // Verify the original position is empty
         try testing.expect(game_board.isEmpty(6, 4));
@@ -198,8 +198,8 @@ test "pawn promotion - all piece types including amazon" {
         try testing.expect(game_board.isEmpty(7, 4)); // Target should be empty
         const restored_piece = game_board.getPieceConst(6, 4);
         try testing.expect(restored_piece != null);
-        try testing.expect(restored_piece.?.piece_type == .pawn);
-        try testing.expect(restored_piece.?.color == .white);
+        try testing.expect(restored_piece.?.getType() == .pawn);
+        try testing.expect(restored_piece.?.getColor() == .white);
 
         promotion_action.deinit(allocator);
     }
@@ -209,7 +209,7 @@ test "pawn promotion - all piece types including amazon" {
         var game_board = Board.init();
 
         // Place a black pawn on the 2nd rank (about to promote)
-        _ = game_board.setPiece(1, 3, Piece.init(.pawn, .black));
+        _ = game_board.setPiece(1, 3, Piece.init(.pawn, .black, 1));
 
         // Create a promotion move from d2 to d1, promoting to amazon
         var promotion_move = Move.initFromCoordsWithPromotion(1, 3, 0, 3, .amazon);
@@ -222,8 +222,8 @@ test "pawn promotion - all piece types including amazon" {
         // Verify the promoted piece
         const promoted_piece = game_board.getPieceConst(0, 3);
         try testing.expect(promoted_piece != null);
-        try testing.expect(promoted_piece.?.piece_type == .amazon);
-        try testing.expect(promoted_piece.?.color == .black);
+        try testing.expect(promoted_piece.?.getType() == .amazon);
+        try testing.expect(promoted_piece.?.getColor() == .black);
 
         // Verify the original position is empty
         try testing.expect(game_board.isEmpty(1, 3));
@@ -240,8 +240,8 @@ test "pawn promotion - all piece types including amazon" {
         try testing.expect(game_board.isEmpty(0, 3)); // Target should be empty
         const restored_piece = game_board.getPieceConst(1, 3);
         try testing.expect(restored_piece != null);
-        try testing.expect(restored_piece.?.piece_type == .pawn);
-        try testing.expect(restored_piece.?.color == .black);
+        try testing.expect(restored_piece.?.getType() == .pawn);
+        try testing.expect(restored_piece.?.getColor() == .black);
 
         amazon_action.deinit(allocator);
     }
@@ -251,10 +251,10 @@ test "pawn promotion - all piece types including amazon" {
         var game_board = Board.init();
 
         // Place a white pawn on the 7th rank
-        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white));
+        _ = game_board.setPiece(6, 4, Piece.init(.pawn, .white, 1));
 
         // Place a black piece to be captured on e8
-        _ = game_board.setPiece(7, 4, Piece.init(.rook, .black));
+        _ = game_board.setPiece(7, 4, Piece.init(.rook, .black, 2));
 
         // Create a promotion move with capture from e7 to e8, promoting to rook
         var promotion_move = Move.initFromCoordsWithPromotion(6, 4, 7, 4, .rook);
@@ -267,8 +267,8 @@ test "pawn promotion - all piece types including amazon" {
         // Verify the promoted piece
         const promoted_piece = game_board.getPieceConst(7, 4);
         try testing.expect(promoted_piece != null);
-        try testing.expect(promoted_piece.?.piece_type == .rook);
-        try testing.expect(promoted_piece.?.color == .white);
+        try testing.expect(promoted_piece.?.getType() == .rook);
+        try testing.expect(promoted_piece.?.getColor() == .white);
 
         // Verify the original position is empty
         try testing.expect(game_board.isEmpty(6, 4));
@@ -284,14 +284,14 @@ test "pawn promotion - all piece types including amazon" {
         // Verify undo worked correctly
         const restored_piece = game_board.getPieceConst(6, 4);
         try testing.expect(restored_piece != null);
-        try testing.expect(restored_piece.?.piece_type == .pawn);
-        try testing.expect(restored_piece.?.color == .white);
+        try testing.expect(restored_piece.?.getType() == .pawn);
+        try testing.expect(restored_piece.?.getColor() == .white);
 
         // Verify captured piece was restored
         const restored_captured = game_board.getPieceConst(7, 4);
         try testing.expect(restored_captured != null);
-        try testing.expect(restored_captured.?.piece_type == .rook);
-        try testing.expect(restored_captured.?.color == .black);
+        try testing.expect(restored_captured.?.getType() == .rook);
+        try testing.expect(restored_captured.?.getColor() == .black);
 
         capture_action.deinit(allocator);
     }

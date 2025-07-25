@@ -8,6 +8,7 @@ pub const action = @import("actions/action.zig");
 pub const coord = @import("coord.zig");
 pub const gamestate = @import("gamestate.zig");
 pub const turn = @import("turn.zig");
+pub const movement = @import("pieces/movement.zig");
 
 pub const PieceType = piece.PieceType;
 pub const PieceColor = piece.PieceColor;
@@ -22,3 +23,4 @@ pub const Skip = action.Skip;
 pub const Coord = coord.Coord;
 pub const GameState = gamestate.GameState;
 pub const Turn = turn.Turn;
+pub const MoveList = movement.MoveList;
