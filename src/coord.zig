@@ -1,6 +1,5 @@
 const std = @import("std");
 
-// Coordinate position on the board
 pub const Coord = struct {
     row: u8,
     col: u8,

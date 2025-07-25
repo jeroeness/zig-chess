@@ -1,6 +1,5 @@
 const std = @import("std");
 
-// Chess piece types
 pub const PieceType = enum(u32) {
     none = 0,
     pawn = 1,
@@ -9,16 +8,14 @@ pub const PieceType = enum(u32) {
     bishop = 4,
     queen = 5,
     king = 6,
-    amazon = 7, // Fairy piece: combines Queen and Knight moves
+    amazon = 7, 
 };
 
-// Chess piece colors
 pub const PieceColor = enum(u32) {
-    white = 0x00, // Use lower bits for colors
-    black = 0x10, // Use higher bits to avoid overlap with PieceType
+    white = 0x00, 
+    black = 0x10, 
 };
 
-// Represents a chess piece
 pub const Piece = struct {
     piece_type: PieceType,
     color: PieceColor,

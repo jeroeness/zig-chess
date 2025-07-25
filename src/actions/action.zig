@@ -11,23 +11,16 @@ pub const Coord = coord_module.Coord;
 pub const Move = move_module.Move;
 pub const Skip = skip_module.Skip;
 
-// Abstract Action interface using function pointers
 pub const Action = struct {
     const Self = @This();
 
-    // Function pointer for executing the action
     executeFn: *const fn (action: *const Action, game_board: *Board) bool,
-    // Function pointer for undoing the action
     undoFn: *const fn (action: *const Action, game_board: *Board) bool,
-    // Function pointer for getting string representation
     toStringFn: *const fn (action: *const Action, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8,
-    // Function pointer for cleanup
     deinitFn: *const fn (action: *const Action, allocator: std.mem.Allocator) void,
 
-    // Pointer to the actual data (will be cast to specific action type)
     data: *anyopaque,
 
-    // Interface methods
     pub fn execute(self: *const Action, game_board: *Board) bool {
         return self.executeFn(self, game_board);
     }

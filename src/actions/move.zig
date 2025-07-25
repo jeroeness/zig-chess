@@ -9,13 +9,12 @@ pub const Piece = piece_module.Piece;
 pub const Coord = coord_module.Coord;
 pub const Action = action_module.Action;
 
-// Concrete Move action
 pub const Move = struct {
     start_coord: Coord,
     target_coord: Coord,
-    captured_piece: ?Piece = null, // For undo functionality
-    promotion_type: ?piece_module.PieceType = null, // For pawn promotion
-    original_piece: ?Piece = null, // For undoing promotion
+    captured_piece: ?Piece = null, 
+    promotion_type: ?piece_module.PieceType = null, 
+    original_piece: ?Piece = null, 
 
     pub fn init(start_coord: Coord, target_coord: Coord) Move {
         return Move{
@@ -47,7 +46,6 @@ pub const Move = struct {
         };
     }
 
-    // Create an Action interface for this Move
     pub fn asAction(self: *Move, allocator: std.mem.Allocator) !*Action {
         const action = try allocator.create(Action);
         action.* = Action{
@@ -60,36 +58,29 @@ pub const Move = struct {
         return action;
     }
 
-    // Implementation of execute for Move
     fn executeMove(action: *const Action, game_board: *Board) bool {
         const move = @as(*const Move, @ptrCast(@alignCast(action.data)));
 
-        // Validate coordinates
         if (!move.start_coord.isValid() or !move.target_coord.isValid()) {
             return false;
         }
 
-        // Check if there's a piece at the start coordinate
         const piece_at_start = game_board.getPieceConst(move.start_coord.row, move.start_coord.col);
         if (piece_at_start == null) {
             return false;
         }
 
-        // Store captured piece for undo
         const move_mut = @as(*Move, @ptrCast(@alignCast(@constCast(action.data))));
         move_mut.captured_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
 
-        // Execute the move
         const move_success = game_board.movePiece(move.start_coord.row, move.start_coord.col, move.target_coord.row, move.target_coord.col);
         if (!move_success) {
             return false;
         }
 
-        // Handle pawn promotion
         if (move.promotion_type) |promo_type| {
             const moved_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
             if (moved_piece) |piece| {
-                // Store original piece for undo
                 move_mut.original_piece = piece;
                 const promoted_piece = Piece.init(promo_type, piece.color);
                 _ = game_board.setPiece(move.target_coord.row, move.target_coord.col, promoted_piece);
@@ -99,34 +90,27 @@ pub const Move = struct {
         return true;
     }
 
-    // Implementation of undo for Move
     fn undoMove(action: *const Action, game_board: *Board) bool {
         const move = @as(*const Move, @ptrCast(@alignCast(action.data)));
 
-        // Validate coordinates
         if (!move.start_coord.isValid() or !move.target_coord.isValid()) {
             return false;
         }
 
-        // Get the piece at target coordinate (should be the piece we moved)
         const moved_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
         if (moved_piece == null) {
             return false;
         }
 
-        // If this was a promotion, restore the original piece type
         var piece_to_move_back = moved_piece.?;
         if (move.promotion_type != null and move.original_piece != null) {
             piece_to_move_back = move.original_piece.?;
         }
 
-        // Move piece back to start coordinate
         _ = game_board.setPiece(move.start_coord.row, move.start_coord.col, piece_to_move_back);
 
-        // Clear the target coordinate first
         _ = game_board.clearPiece(move.target_coord.row, move.target_coord.col);
 
-        // Restore captured piece if any
         if (move.captured_piece) |captured| {
             _ = game_board.setPiece(move.target_coord.row, move.target_coord.col, captured);
         }
@@ -134,7 +118,6 @@ pub const Move = struct {
         return true;
     }
 
-    // Implementation of toString for Move
     fn moveToString(action: *const Action, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8 {
         const move = @as(*const Move, @ptrCast(@alignCast(action.data)));
 
@@ -161,10 +144,8 @@ pub const Move = struct {
         }
     }
 
-    // Implementation of deinit for Move
     fn deinitMove(action: *const Action, allocator: std.mem.Allocator) void {
         _ = action;
         _ = allocator;
-        // Move doesn't need special cleanup
     }
 };

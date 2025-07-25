@@ -11,11 +11,8 @@ For debug prints without parameters, use this template: `std.debug.print("Messag
 
 ## Testing
 
-Running tests: 
-```bash
-zig build test
-```
-Do not run individual tests directly. Always run the full test suite.
+Running tests call the tool: `run_all_zig_tests`.
+Do not run individual tests directly. Always use the tool.
 
 Add a test in the `tests/` directory. Each test file should `const root = @import("root_chess");` to access the main functionality of the chess engine.
 Make sure to add the test file to `tests/tests.zig` so it gets included in the test suite. Do not modify the `build.zig` file directly for test imports.

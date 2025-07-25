@@ -1,9 +1,11 @@
 const std = @import("std");
 const action = @import("actions/action.zig");
 const piece = @import("piece.zig");
+const board = @import("board.zig");
 
 pub const Action = action.Action;
 pub const Piece = piece.Piece;
+pub const Board = board.Board;
 
 pub const Turn = struct {
     actions: std.ArrayList(*Action),
@@ -59,5 +61,21 @@ pub const Turn = struct {
             return null;
         }
         return self.captures.items[index];
+    }
+
+    pub fn undoAllActions(self: *Turn, game_board: *Board) bool {
+        var all_successful = true;
+
+        var i = self.actions.items.len;
+        while (i > 0) {
+            i -= 1;
+            const action_ptr = self.actions.items[i];
+            const success = action_ptr.undo(game_board);
+            if (!success) {
+                all_successful = false;
+            }
+        }
+
+        return all_successful;
     }
 };

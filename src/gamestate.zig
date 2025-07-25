@@ -9,7 +9,6 @@ pub const Action = action.Action;
 pub const PieceColor = piece.PieceColor;
 pub const Turn = turn.Turn;
 
-// GameState class that manages the board and action history
 pub const GameState = struct {
     board: Board,
     turns: std.ArrayList(*Turn),

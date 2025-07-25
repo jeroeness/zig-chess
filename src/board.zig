@@ -136,7 +136,7 @@ pub const Board = struct {
 
         for (0..8) |row| {
             for (0..8) |col| {
-                try result.append(1); // Type 1 = Cell
+                try result.append(1); 
                 const cell_data = self.cells[row][col].serialize();
                 try result.append(@intCast(cell_data.len));
                 for (cell_data) |value| {
@@ -144,13 +144,13 @@ pub const Board = struct {
                 }
 
                 if (self.pieces[row][col]) |current_piece| {
-                    try result.append(2); // Type 2 = Piece
+                    try result.append(2); 
                     const piece_data = current_piece.serialize();
                     try result.append(@intCast(piece_data.len));
                     try result.appendSlice(&piece_data);
                 } else {
-                    try result.append(0); // Type 0 = No piece
-                    try result.append(0); // Length 0
+                    try result.append(0); 
+                    try result.append(0); 
                 }
             }
         }
@@ -191,7 +191,7 @@ pub const Board = struct {
                 const piece_data_len = data[index];
                 index += 1;
 
-                if (piece_type == 2) { // Piece exists
+                if (piece_type == 2) { 
                     if (index + piece_data_len > data.len) return error.InvalidData;
                     const piece_data = data[index .. index + piece_data_len];
 
@@ -199,7 +199,7 @@ pub const Board = struct {
                     const piece_array: [2]u32 = piece_data[0..2].*;
                     board.pieces[row][col] = try Piece.deserialize(piece_array);
                     index += piece_data_len;
-                } else if (piece_type == 0) { // No piece
+                } else if (piece_type == 0) { 
                     board.pieces[row][col] = null;
                     index += piece_data_len;
                 } else {
@@ -238,20 +238,16 @@ pub const Board = struct {
     }
 
     pub fn eql_fast(self: *Board, other: *Board) bool {
-        // Quick check using hashes
         const self_hash = self.hash();
         const other_hash = other.hash();
         if (self_hash != other_hash) {
             return false;
         }
 
-        // If hashes match, do a full comparison
         return self.eql(other.*);
     }
 
-    // Equality function for comparing boards
     pub fn eql(self: Board, other: Board) bool {
-        // Compare all cells
         for (0..8) |row| {
             for (0..8) |col| {
                 if (!self.cells[row][col].eql(other.cells[row][col])) {
@@ -260,23 +256,19 @@ pub const Board = struct {
             }
         }
 
-        // Compare all pieces
         for (0..8) |row| {
             for (0..8) |col| {
                 const self_piece = self.pieces[row][col];
                 const other_piece = other.pieces[row][col];
 
-                // Both null
                 if (self_piece == null and other_piece == null) {
                     continue;
                 }
 
-                // One null, one not
                 if (self_piece == null or other_piece == null) {
                     return false;
                 }
 
-                // Both have pieces, compare them
                 if (!self_piece.?.eql(other_piece.?)) {
                     return false;
                 }
