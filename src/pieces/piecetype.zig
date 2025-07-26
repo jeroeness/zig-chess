@@ -133,8 +133,6 @@ pub fn toString(piece_type: PieceType) []const u8 {
         .carpenter => "Carpenter",
         .gnu => "Gnu",
         .kangaroo => "Kangaroo",
-        .koala => "Koala",
-        .lion => "Lion",
         .man => "Man",
         .okapi => "Okapi",
         .phoenix => "Phoenix",

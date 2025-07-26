@@ -78,9 +78,11 @@ pub const Move = struct {
                 .amazon => "A",
                 else => "?",
             };
-            return std.fmt.allocPrint(allocator, "{s}{s}{s}={s}", .{ start_str, capture_symbol, target_str, promo_char });
+            try std.debug.print("{s}{s}{s}={s}\n", .{ start_str, capture_symbol, target_str, promo_char });
+            return allocator.alloc(u8, 0);
         } else {
-            return std.fmt.allocPrint(allocator, "{s}{s}{s}", .{ start_str, capture_symbol, target_str });
+            try std.debug.print("{s}{s}{s}\n", .{ start_str, capture_symbol, target_str });
+            return allocator.alloc(u8, 0);
         }
     }
 
@@ -146,24 +148,13 @@ pub const Move = struct {
 
     fn moveToString(action: *const Action, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8 {
         const move = @as(*const Move, @ptrCast(@alignCast(action.data)));
-
         const start_str = try move.start_coord.toString(allocator);
         defer allocator.free(start_str);
-
         const target_str = try move.target_coord.toString(allocator);
         defer allocator.free(target_str);
-
         const capture_symbol = if (move.captured_piece != null) "x" else "-";
-
         if (move.promotion_type) |promo_type| {
-            const promo_char = switch (promo_type) {
-                .queen => "Q",
-                .rook => "R",
-                .knight => "N",
-                .bishop => "B",
-                .amazon => "A",
-                else => "?",
-            };
+            const promo_char = piecetype_module.toString(promo_type);
             return std.fmt.allocPrint(allocator, "{s}{s}{s}={s}", .{ start_str, capture_symbol, target_str, promo_char });
         } else {
             return std.fmt.allocPrint(allocator, "{s}{s}{s}", .{ start_str, capture_symbol, target_str });

@@ -15,8 +15,8 @@ test "board initialization" {
             const position = Coord.init(@intCast(row), @intCast(col));
             const chess_cell = chessboard.getCell(position);
             try testing.expect(chess_cell != null);
-            try testing.expect(chess_cell.?.row == row);
-            try testing.expect(chess_cell.?.col == col);
+            try testing.expect(chess_cell.?.coord.row == row);
+            try testing.expect(chess_cell.?.coord.col == col);
             try testing.expect(chessboard.isEmpty(position));
         }
     }

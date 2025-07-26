@@ -19,9 +19,7 @@ pub const Coord = struct {
         return self.row == other.row and self.col == other.col;
     }
 
-    pub fn toString(self: Coord, allocator: std.mem.Allocator) ![]u8 {
-        const col_char = @as(u8, 'a') + self.col;
-        const row_char = @as(u8, '1') + self.row;
-        return std.fmt.allocPrint(allocator, "{c}{c}", .{ col_char, row_char });
+    pub fn toString(self: Coord, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8 {
+        return std.fmt.allocPrint(allocator, "Coord{{ .row = {d}, .col = {d} }}", .{ self.row, self.col });
     }
 };

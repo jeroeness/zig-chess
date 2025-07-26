@@ -7,6 +7,20 @@ pub const Piece = piece.Piece;
 pub const Cell = cell.Cell;
 pub const Coord = coord.Coord;
 
+pub fn allCoords() [64]Coord {
+    var coords: [64]Coord = undefined;
+    var index: usize = 0;
+
+    for (0..8) |row| {
+        for (0..8) |col| {
+            coords[index] = Coord.init(@intCast(row), @intCast(col));
+            index += 1;
+        }
+    }
+
+    return coords;
+}
+
 pub const Board = struct {
     cells: [8][8]Cell,
     pieces: [8][8]?Piece,

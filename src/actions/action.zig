@@ -29,8 +29,8 @@ pub const Action = struct {
         return self.undoFn(self, game_board);
     }
 
-    pub fn toString(self: *const Action, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8 {
-        return self.toStringFn(self, allocator);
+    pub fn toString(self: *const Action, allocator: std.mem.Allocator) []u8 {
+        return self.toStringFn(self, allocator) catch unreachable;
     }
 
     pub fn deinit(self: *const Action, allocator: std.mem.Allocator) void {

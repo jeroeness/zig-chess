@@ -1,25 +1,25 @@
 const std = @import("std");
-const board = @import("board.zig");
-const piece = @import("piece.zig");
-const cell = @import("cell.zig");
-const coord = @import("coord.zig");
-const movement = @import("pieces/movement.zig");
-const gamestate = @import("gamestate.zig");
-const move_action = @import("actions/move.zig");
+const board_module = @import("board.zig");
+const piece_module = @import("piece.zig");
+const cell_module = @import("cell.zig");
+const coord_module = @import("coord.zig");
+const movement_module = @import("pieces/movement.zig");
+const gamestate_module = @import("gamestate.zig");
+const move_action_module = @import("actions/move.zig");
 
 const ray = @cImport({
     @cInclude("raylib.h");
 });
 
-pub const Board = board.Board;
-pub const Piece = piece.Piece;
-pub const PieceType = piece.PieceType;
-pub const PieceColor = piece.PieceColor;
-pub const Cell = cell.Cell;
-pub const Coord = coord.Coord;
-pub const MoveList = movement.MoveList;
-pub const GameState = gamestate.GameState;
-pub const Move = move_action.Move;
+pub const Board = board_module.Board;
+pub const Piece = piece_module.Piece;
+pub const PieceType = piece_module.PieceType;
+pub const PieceColor = piece_module.PieceColor;
+pub const Cell = cell_module.Cell;
+pub const Coord = coord_module.Coord;
+pub const MoveList = movement_module.MoveList;
+pub const GameState = gamestate_module.GameState;
+pub const Move = move_action_module.Move;
 
 pub const RendererConfig = struct {
     cell_size: i32 = 80,
@@ -64,7 +64,7 @@ pub const Renderer = struct {
             const coord_opt = self.screenToBoard(mouse_pos.x, mouse_pos.y);
 
             if (coord_opt) |clicked_coord| {
-                const piece_opt = board_ref.getPieceConst(clicked_coord.row, clicked_coord.col);
+                const piece_opt = board_ref.getPieceConst(clicked_coord);
 
                 if (self.selected_piece) |selected_coord| {
                     if (self.isValidMove(clicked_coord)) {
@@ -96,7 +96,7 @@ pub const Renderer = struct {
     pub fn selectPiece(self: *Renderer, piece_coord: Coord, board_ref: *const Board) void {
         self.clearSelection();
 
-        if (board_ref.getPieceConst(piece_coord.row, piece_coord.col)) |selected_piece| {
+        if (board_ref.getPieceConst(piece_coord)) |selected_piece| {
             self.selected_piece = piece_coord;
             self.possible_moves = selected_piece.getMoves(piece_coord, board_ref, self.allocator) catch null;
         }
@@ -126,8 +126,8 @@ pub const Renderer = struct {
         const action = move.asAction(self.allocator) catch return;
 
         // Debug print action
-        const action_str = action.toString(self.allocator) catch "Error converting action to string";
-        std.debug.print("Executing action: {}\n", .{action_str});
+        const action_str = action.toString(self.allocator);
+        std.debug.print("Executing action: {s}\n", .{action_str});
 
         const success = game_state.executeAction(action) catch false;
         if (!success) {
@@ -156,49 +156,35 @@ pub const Renderer = struct {
     pub fn drawBoard(self: *const Renderer, chess_board: *const Board) void {
         const BOARD_SIZE = 8;
 
-        for (0..BOARD_SIZE) |row| {
-            for (0..BOARD_SIZE) |col| {
-                const x = self.config.board_offset_x + @as(i32, @intCast(col)) * self.config.cell_size;
-                const y = self.config.board_offset_y + @as(i32, @intCast(row)) * self.config.cell_size;
+        for (board_module.allCoords()) |c| {
+            const x = self.config.board_offset_x + @as(i32, @intCast(c.col)) * self.config.cell_size;
+            const y = self.config.board_offset_y + @as(i32, @intCast(c.row)) * self.config.cell_size;
 
-                const is_light_square = (row + col) % 2 == 0;
+            const is_light_square = (c.row + c.col) % 2 == 0;
 
-                const color = if (is_light_square) ray.BEIGE else ray.BROWN;
-                ray.DrawRectangle(x, y, self.config.cell_size, self.config.cell_size, color);
+            const color = if (is_light_square) ray.BEIGE else ray.BROWN;
+            ray.DrawRectangle(x, y, self.config.cell_size, self.config.cell_size, color);
 
-                ray.DrawRectangleLines(x, y, self.config.cell_size, self.config.cell_size, ray.BLACK);
-            }
+            ray.DrawRectangleLines(x, y, self.config.cell_size, self.config.cell_size, ray.BLACK);
         }
 
         self.drawMoveHighlights(chess_board);
 
-        for (0..BOARD_SIZE) |row| {
-            for (0..BOARD_SIZE) |col| {
-                const piece_opt = chess_board.getPieceConst(@intCast(row), @intCast(col));
-                if (piece_opt) |piece_val| {
-                    self.drawPiece(piece_val, @intCast(row), @intCast(col));
-                }
+        for (board_module.allCoords()) |c| {
+            const piece_opt = chess_board.getPieceConst(c);
+            if (piece_opt) |piece_val| {
+                self.drawPiece(piece_val, c);
             }
         }
 
         ray.DrawRectangleLines(self.config.board_offset_x - 2, self.config.board_offset_y - 2, BOARD_SIZE * self.config.cell_size + 4, BOARD_SIZE * self.config.cell_size + 4, ray.BLACK);
     }
 
-    fn drawPiece(self: *const Renderer, piece_val: Piece, row: u8, col: u8) void {
-        const x = self.config.board_offset_x + @as(i32, @intCast(col)) * self.config.cell_size + @divTrunc(self.config.cell_size, 2);
-        const y = self.config.board_offset_y + @as(i32, @intCast(row)) * self.config.cell_size + @divTrunc(self.config.cell_size, 2);
+    fn drawPiece(self: *const Renderer, piece_val: Piece, coord: Coord) void {
+        const x = self.config.board_offset_x + @as(i32, @intCast(coord.col)) * self.config.cell_size + @divTrunc(self.config.cell_size, 2);
+        const y = self.config.board_offset_y + @as(i32, @intCast(coord.row)) * self.config.cell_size + @divTrunc(self.config.cell_size, 2);
 
-        const piece_symbol = switch (piece_val.getType()) {
-            .pawn => "P",
-            .rook => "R",
-            .knight => "N",
-            .bishop => "B",
-            .queen => "Q",
-            .king => "K",
-            .amazon => "A",
-            .none => "",
-            else => "?", // Fallback for unknown piece types
-        };
+        const piece_symbol = piece_val.toString();
 
         const text_color = switch (piece_val.getColor()) {
             .white => ray.BLACK,
@@ -210,8 +196,7 @@ pub const Renderer = struct {
             .black => ray.DARKGRAY,
         };
 
-        const current_coord = Coord.init(row, col);
-        const is_selected = if (self.selected_piece) |selected| selected.eql(current_coord) else false;
+        const is_selected = if (self.selected_piece) |selected| selected.eql(coord) else false;
 
         if (is_selected) {
             ray.DrawCircle(x, y, 35, ray.YELLOW);
@@ -234,7 +219,7 @@ pub const Renderer = struct {
                 const center_x = x + @divTrunc(self.config.cell_size, 2);
                 const center_y = y + @divTrunc(self.config.cell_size, 2);
 
-                const target_piece = chess_board.getPieceConst(move.row, move.col);
+                const target_piece = chess_board.getPieceConst(move);
                 if (target_piece != null) {
                     self.drawCaptureTriangles(x, y);
                 } else {

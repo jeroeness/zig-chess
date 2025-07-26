@@ -7,7 +7,7 @@ pub const Board = board_module.Board;
 pub const Action = action_module.Action;
 
 pub const Skip = struct {
-    player_color: piece_module.PieceColor, 
+    player_color: piece_module.PieceColor,
 
     pub fn init(player_color: piece_module.PieceColor) Skip {
         return Skip{

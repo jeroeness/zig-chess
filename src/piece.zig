@@ -10,7 +10,7 @@ pub const PieceColor = enum(u8) {
 
 pub const PieceTypeColor = u8;
 
-pub fn toString(piece: Piece) []const u8 {
+pub fn pieceToString(piece: Piece) []const u8 {
     const piece_type = piece.getType();
 
     const symbol = switch (piece_type) {
@@ -34,6 +34,10 @@ pub const Piece = struct {
             .piece = @intFromEnum(piece_type) + @intFromEnum(color),
             .id = id,
         };
+    }
+
+    pub fn toString(piece: Piece) []const u8 {
+        return pieceToString(piece);
     }
 
     pub fn isColor(self: Piece, color: PieceColor) bool {

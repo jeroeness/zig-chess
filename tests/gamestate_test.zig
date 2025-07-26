@@ -108,15 +108,15 @@ test "gamestate serialization and deserialization" {
 
     // Test some specific pieces to make sure they're correctly preserved
     const original_king = chess_board.getPieceConst(Coord.init(0, 4));
-    const deserialized_king = deserialized_state.getBoard().getPieceConst(0, 4);
+    const deserialized_king = deserialized_state.getBoard().getPieceConst(Coord.init(0, 4));
     try testing.expect(original_king != null);
     try testing.expect(deserialized_king != null);
     try testing.expect(original_king.?.getType() == deserialized_king.?.getType());
     try testing.expect(original_king.?.getColor() == deserialized_king.?.getColor());
 
     // Test the custom amazon piece
-    const original_amazon = chess_board.getPieceConst(2, 2);
-    const deserialized_amazon = deserialized_state.getBoard().getPieceConst(2, 2);
+    const original_amazon = chess_board.getPieceConst(Coord.init(2, 2));
+    const deserialized_amazon = deserialized_state.getBoard().getPieceConst(Coord.init(2, 2));
     try testing.expect(original_amazon != null);
     try testing.expect(deserialized_amazon != null);
     try testing.expect(original_amazon.?.getType() == .amazon);
@@ -124,11 +124,11 @@ test "gamestate serialization and deserialization" {
     try testing.expect(original_amazon.?.getColor() == deserialized_amazon.?.getColor());
 
     // Test that a pawn position is consistent (should have white pawn in both boards)
-    try testing.expect(!chess_board.isEmpty(1, 1));
-    try testing.expect(!deserialized_state.getBoard().isEmpty(1, 1));
+    try testing.expect(!chess_board.isEmpty(Coord.init(1, 1)));
+    try testing.expect(!deserialized_state.getBoard().isEmpty(Coord.init(1, 1)));
 
-    const original_pawn = chess_board.getPieceConst(1, 1);
-    const deserialized_pawn = deserialized_state.getBoard().getPieceConst(1, 1);
+    const original_pawn = chess_board.getPieceConst(Coord.init(1, 1));
+    const deserialized_pawn = deserialized_state.getBoard().getPieceConst(Coord.init(1, 1));
     try testing.expect(original_pawn != null);
     try testing.expect(deserialized_pawn != null);
     try testing.expect(original_pawn.?.getType() == .pawn);
@@ -229,8 +229,8 @@ test "gamestate undo functionality" {
     try testing.expect(game_state.getActionCount() == 1);
 
     // Verify the move was executed
-    try testing.expect(game_state.getBoard().isEmpty(1, 4));
-    try testing.expect(!game_state.getBoard().isEmpty(3, 4));
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(1, 4)));
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(3, 4)));
 
     // Undo the move
     const undo_success = game_state.undoLastAction();
@@ -241,8 +241,8 @@ test "gamestate undo functionality" {
     try testing.expect(game_state.getLastAction() == null);
 
     // Verify the board state was restored
-    try testing.expect(!game_state.getBoard().isEmpty(1, 4)); // e2 should have piece again
-    try testing.expect(game_state.getBoard().isEmpty(3, 4)); // e4 should be empty
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(1, 4))); // e2 should have piece again
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(3, 4))); // e4 should be empty
 
     // Test undo when no actions exist
     const undo_empty = game_state.undoLastAction();
@@ -293,12 +293,12 @@ test "gamestate multiple actions and undo sequence" {
     try testing.expect(game_state.getLastAction() == null);
 
     // Verify all moves are undone
-    try testing.expect(!game_state.getBoard().isEmpty(1, 4)); // e2 should have piece
-    try testing.expect(!game_state.getBoard().isEmpty(6, 4)); // e7 should have piece
-    try testing.expect(!game_state.getBoard().isEmpty(1, 3)); // d2 should have piece
-    try testing.expect(game_state.getBoard().isEmpty(3, 4)); // e4 should be empty
-    try testing.expect(game_state.getBoard().isEmpty(4, 4)); // e5 should be empty
-    try testing.expect(game_state.getBoard().isEmpty(3, 3)); // d4 should be empty
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(1, 4))); // e2 should have piece
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(6, 4))); // e7 should have piece
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(1, 3))); // d2 should have piece
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(3, 4))); // e4 should be empty
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(4, 4))); // e5 should be empty
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(3, 3))); // d4 should be empty
 }
 
 test "gamestate clear actions functionality" {
@@ -332,10 +332,10 @@ test "gamestate clear actions functionality" {
     try testing.expect(game_state.getAction(0) == null);
 
     // Board state should remain unchanged (clearActions doesn't undo moves)
-    try testing.expect(game_state.getBoard().isEmpty(1, 4)); // e2 should still be empty
-    try testing.expect(game_state.getBoard().isEmpty(6, 4)); // e7 should still be empty
-    try testing.expect(!game_state.getBoard().isEmpty(3, 4)); // e4 should still have piece
-    try testing.expect(!game_state.getBoard().isEmpty(4, 4)); // e5 should still have piece
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(1, 4))); // e2 should still be empty
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(6, 4))); // e7 should still be empty
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(3, 4))); // e4 should still have piece
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(4, 4))); // e5 should still have piece
 }
 
 test "gamestate with skip actions" {
@@ -376,10 +376,10 @@ test "gamestate with skip actions" {
     try testing.expect(game_state.getLastAction() == action1);
 
     // Board should only have the first move
-    try testing.expect(game_state.getBoard().isEmpty(1, 4)); // e2 should be empty
-    try testing.expect(!game_state.getBoard().isEmpty(3, 4)); // e4 should have piece
-    try testing.expect(!game_state.getBoard().isEmpty(1, 3)); // d2 should have piece (move3 undone)
-    try testing.expect(game_state.getBoard().isEmpty(3, 3)); // d4 should be empty (move3 undone)
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(1, 4))); // e2 should be empty
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(3, 4))); // e4 should have piece
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(1, 3))); // d2 should have piece (move3 undone)
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(3, 3))); // d4 should be empty (move3 undone)
 }
 
 test "gamestate with promotion moves" {
@@ -402,9 +402,9 @@ test "gamestate with promotion moves" {
 
     // Verify the promotion was executed
     try testing.expect(game_state.getActionCount() == 1);
-    try testing.expect(game_state.getBoard().isEmpty(6, 4)); // Original position empty
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(6, 4))); // Original position empty
 
-    const promoted_piece = game_state.getBoard().getPieceConst(7, 4);
+    const promoted_piece = game_state.getBoard().getPieceConst(Coord.init(7, 4));
     try testing.expect(promoted_piece != null);
     try testing.expect(promoted_piece.?.getType() == .queen);
     try testing.expect(promoted_piece.?.getColor() == .white);
@@ -414,9 +414,9 @@ test "gamestate with promotion moves" {
     try testing.expect(game_state.getActionCount() == 0);
 
     // Verify the promotion was undone
-    try testing.expect(game_state.getBoard().isEmpty(7, 4)); // Promoted position empty
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(7, 4))); // Promoted position empty
 
-    const restored_piece = game_state.getBoard().getPieceConst(6, 4);
+    const restored_piece = game_state.getBoard().getPieceConst(Coord.init(6, 4));
     try testing.expect(restored_piece != null);
     try testing.expect(restored_piece.?.getType() == .pawn);
     try testing.expect(restored_piece.?.getColor() == .white);
