@@ -4,6 +4,8 @@ const piece = @import("piece.zig");
 const cell = @import("cell.zig");
 const coord = @import("coord.zig");
 const movement = @import("pieces/movement.zig");
+const gamestate = @import("gamestate.zig");
+const move_action = @import("actions/move.zig");
 
 const ray = @cImport({
     @cInclude("raylib.h");
@@ -16,6 +18,8 @@ pub const PieceColor = piece.PieceColor;
 pub const Cell = cell.Cell;
 pub const Coord = coord.Coord;
 pub const MoveList = movement.MoveList;
+pub const GameState = gamestate.GameState;
+pub const Move = move_action.Move;
 
 pub const RendererConfig = struct {
     cell_size: i32 = 80,
@@ -54,13 +58,21 @@ pub const Renderer = struct {
         }
     }
 
-    pub fn handleMouseClick(self: *Renderer, board_ref: *const Board) void {
+    pub fn handleMouseClick(self: *Renderer, board_ref: *const Board, game_state: *GameState) void {
         if (ray.IsMouseButtonPressed(ray.MOUSE_BUTTON_LEFT)) {
             const mouse_pos = ray.GetMousePosition();
             const coord_opt = self.screenToBoard(mouse_pos.x, mouse_pos.y);
 
             if (coord_opt) |clicked_coord| {
                 const piece_opt = board_ref.getPieceConst(clicked_coord.row, clicked_coord.col);
+
+                if (self.selected_piece) |selected_coord| {
+                    if (self.isValidMove(clicked_coord)) {
+                        self.executeMove(selected_coord, clicked_coord, game_state);
+                        self.clearSelection();
+                        return;
+                    }
+                }
 
                 if (piece_opt != null) {
                     if (self.selected_piece) |selected| {
@@ -95,6 +107,32 @@ pub const Renderer = struct {
         if (self.possible_moves) |*moves| {
             moves.deinit();
             self.possible_moves = null;
+        }
+    }
+
+    fn isValidMove(self: *const Renderer, target_coord: Coord) bool {
+        if (self.possible_moves) |moves| {
+            for (moves.items) |move| {
+                if (move.eql(target_coord)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    fn executeMove(self: *Renderer, start_coord: Coord, target_coord: Coord, game_state: *GameState) void {
+        var move = Move.init(start_coord, target_coord);
+        const action = move.asAction(self.allocator) catch return;
+
+        // Debug print action
+        const action_str = action.toString(self.allocator) catch "Error converting action to string";
+        std.debug.print("Executing action: {}\n", .{action_str});
+
+        const success = game_state.executeAction(action) catch false;
+        if (!success) {
+            action.deinit(self.allocator);
+            self.allocator.destroy(action);
         }
     }
 
@@ -200,8 +238,7 @@ pub const Renderer = struct {
                 if (target_piece != null) {
                     self.drawCaptureTriangles(x, y);
                 } else {
-                    ray.DrawCircle(center_x, center_y, 8, ray.GREEN);
-                    ray.DrawCircleLines(center_x, center_y, 8, ray.DARKGREEN);
+                    ray.DrawCircle(center_x, center_y, 12, ray.ColorAlpha(ray.DARKGREEN, 0.5));
                 }
             }
         }
@@ -230,8 +267,7 @@ pub const Renderer = struct {
             const v2 = ray.Vector2{ .x = @as(f32, @floatFromInt(corner[0] + offsets[1][0])), .y = @as(f32, @floatFromInt(corner[1] + offsets[1][1])) };
             const v3 = ray.Vector2{ .x = @as(f32, @floatFromInt(corner[0] + offsets[2][0])), .y = @as(f32, @floatFromInt(corner[1] + offsets[2][1])) };
 
-            ray.DrawTriangle(v1, v2, v3, ray.RED);
-            ray.DrawTriangleLines(v1, v2, v3, ray.RED);
+            ray.DrawTriangle(v1, v2, v3, ray.ColorAlpha(ray.DARKGREEN, 0.5));
         }
     }
 

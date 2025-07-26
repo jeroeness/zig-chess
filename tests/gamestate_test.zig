@@ -7,6 +7,7 @@ const Board = root.Board;
 const Piece = root.Piece;
 const Move = root.Move;
 const Skip = root.Skip;
+const Coord = root.Coord;
 
 test "gamestate initialization" {
     var gpa = std.heap.GeneralPurposeAllocator(.{}){};
@@ -23,7 +24,7 @@ test "gamestate initialization" {
     const initial_board = state.getBoard();
     for (0..8) |row| {
         for (0..8) |col| {
-            try testing.expect(initial_board.isEmpty(row, col));
+            try testing.expect(initial_board.isEmpty(Coord.init(@intCast(row), @intCast(col))));
         }
     }
 
@@ -65,8 +66,8 @@ test "gamestate move execution and undo" {
     _ = try state.executeAction(move_action);
 
     // Verify the move was executed
-    try testing.expect(chess_board.isEmpty(1, 4)); // Start position should be empty
-    try testing.expect(!chess_board.isEmpty(3, 4)); // Target position should have piece
+    try testing.expect(chess_board.isEmpty(Coord.init(1, 4))); // Start position should be empty
+    try testing.expect(!chess_board.isEmpty(Coord.init(3, 4))); // Target position should have piece
 
     // Test gamestate history
     try testing.expect(state.getHistoryLength() == 1);
@@ -75,8 +76,8 @@ test "gamestate move execution and undo" {
     try testing.expect(move_action.undo(chess_board));
 
     // Verify the move was undone
-    try testing.expect(!chess_board.isEmpty(1, 4)); // Start position should have piece again
-    try testing.expect(chess_board.isEmpty(3, 4)); // Target position should be empty
+    try testing.expect(!chess_board.isEmpty(Coord.init(1, 4))); // Start position should have piece again
+    try testing.expect(chess_board.isEmpty(Coord.init(3, 4))); // Target position should be empty
 
     // Test gamestate history after undo
     try testing.expect(state.getHistoryLength() == 1); // Still 1, since we only undid the last move
@@ -93,7 +94,7 @@ test "gamestate serialization and deserialization" {
     chess_board.setupInitialPosition();
 
     // Add a custom amazon piece for testing
-    _ = chess_board.setPiece(2, 2, Piece.init(.amazon, .white, 1));
+    _ = chess_board.setPiece(Coord.init(2, 2), Piece.init(.amazon, .white, 1));
 
     // Serialize the initial state
     const serialized_data = try state.serialize(allocator);
@@ -106,7 +107,7 @@ test "gamestate serialization and deserialization" {
     try testing.expect(state.eql(deserialized_state));
 
     // Test some specific pieces to make sure they're correctly preserved
-    const original_king = chess_board.getPieceConst(0, 4);
+    const original_king = chess_board.getPieceConst(Coord.init(0, 4));
     const deserialized_king = deserialized_state.getBoard().getPieceConst(0, 4);
     try testing.expect(original_king != null);
     try testing.expect(deserialized_king != null);
@@ -160,10 +161,10 @@ test "gamestate initialization and basic functionality" {
     game_state.setupInitialPosition();
 
     // Verify initial position is set
-    try testing.expect(!game_state.getBoard().isEmpty(0, 0)); // White rook
-    try testing.expect(!game_state.getBoard().isEmpty(7, 0)); // Black rook
-    try testing.expect(!game_state.getBoard().isEmpty(1, 0)); // White pawn
-    try testing.expect(!game_state.getBoard().isEmpty(6, 0)); // Black pawn
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(0, 0))); // White rook
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(7, 0))); // Black rook
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(1, 0))); // White pawn
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(6, 0))); // Black pawn
 }
 
 test "gamestate action execution and history" {
@@ -190,8 +191,8 @@ test "gamestate action execution and history" {
     try testing.expect(game_state.getAction(0) == action1);
 
     // Verify the move was executed on the board
-    try testing.expect(game_state.getBoard().isEmpty(1, 4)); // e2 should be empty
-    try testing.expect(!game_state.getBoard().isEmpty(3, 4)); // e4 should have piece
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(1, 4))); // e2 should be empty
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(3, 4))); // e4 should have piece
 
     // Create and execute second move: e7-e5
     var move2 = Move.initFromCoords(6, 4, 4, 4);
@@ -206,8 +207,8 @@ test "gamestate action execution and history" {
     try testing.expect(game_state.getAction(1) == action2);
 
     // Verify the move was executed on the board
-    try testing.expect(game_state.getBoard().isEmpty(6, 4)); // e7 should be empty
-    try testing.expect(!game_state.getBoard().isEmpty(4, 4)); // e5 should have piece
+    try testing.expect(game_state.getBoard().isEmpty(Coord.init(6, 4))); // e7 should be empty
+    try testing.expect(!game_state.getBoard().isEmpty(Coord.init(4, 4))); // e5 should have piece
 }
 
 test "gamestate undo functionality" {
@@ -390,7 +391,7 @@ test "gamestate with promotion moves" {
     defer game_state.deinit();
 
     // Set up a board with a pawn ready to promote
-    _ = game_state.getBoard().setPiece(6, 4, Piece.init(.pawn, .white, 1));
+    _ = game_state.getBoard().setPiece(Coord.init(6, 4), Piece.init(.pawn, .white, 1));
 
     // Execute a promotion move
     var promotion_move = Move.initFromCoordsWithPromotion(6, 4, 7, 4, .queen);

@@ -87,6 +87,26 @@ async def run_all_zig_tests():
         LOGGER.error("Zig tests failed:\n%s", e.stderr)
         return e.stderr
 
+@mcp.tool()
+async def zig_build():
+    """
+    Run Zig build.
+    """
+    import subprocess
+    LOGGER.info("Running Zig build...")
+
+    # Get the project root directory (parent of the mcp directory)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_root = os.path.dirname(script_dir)
+
+    try:
+        result = subprocess.run(["zig", "build"], check=True, capture_output=True, text=True, cwd=project_root)
+        LOGGER.info("Zig build succeeded:\n%s", result.stdout)
+        return "Zig build succeeded! " + result.stdout
+    except subprocess.CalledProcessError as e:
+        LOGGER.error("Zig build failed:\n%s", e.stderr)
+        return e.stderr
+
 
 
 if __name__ == "__main__":

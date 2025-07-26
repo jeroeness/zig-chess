@@ -10,6 +10,21 @@ pub const PieceColor = enum(u8) {
 
 pub const PieceTypeColor = u8;
 
+pub fn toString(piece: Piece) []const u8 {
+    const piece_type = piece.getType();
+
+    const symbol = switch (piece_type) {
+        .none => " ",
+        .pawn => "P",
+        .rook => "R",
+        .knight => "N",
+        .bishop => "B",
+        .queen => "Q",
+        .king => "K",
+        else => "?",
+    };
+    return symbol;
+}
 pub const Piece = struct {
     piece: PieceTypeColor,
     id: u8,

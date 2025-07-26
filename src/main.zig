@@ -29,11 +29,14 @@ pub fn main() !void {
         .use_unicode = false,
     };
 
+    var gamestate = root.GameState.init(allocator);
+    defer gamestate.deinit();
+
     var renderer = root.Renderer.init(config, allocator);
     defer renderer.deinit();
 
     while (!ray.WindowShouldClose()) {
-        renderer.handleMouseClick(&chess_board);
+        renderer.handleMouseClick(&chess_board, &gamestate);
 
         ray.BeginDrawing();
         defer ray.EndDrawing();

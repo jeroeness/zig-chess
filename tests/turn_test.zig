@@ -37,8 +37,8 @@ test "turn undo all actions functionality" {
     try testing.expect(success1);
     try testing.expect(success2);
 
-    try testing.expect(!board.isEmpty(2, 0));
-    try testing.expect(!board.isEmpty(3, 1));
+    try testing.expect(!board.isEmpty(Coord.init(2, 0)));
+    try testing.expect(!board.isEmpty(Coord.init(3, 1)));
     try testing.expect(board.isEmpty(1, 0));
     try testing.expect(board.isEmpty(1, 1));
 
@@ -94,10 +94,10 @@ test "turn undo all actions reverse order" {
     _ = move2_ptr.execute(&board);
     _ = move3_ptr.execute(&board);
 
-    try testing.expect(!board.isEmpty(4, 0));
-    try testing.expect(board.isEmpty(1, 0));
-    try testing.expect(board.isEmpty(2, 0));
-    try testing.expect(board.isEmpty(3, 0));
+    try testing.expect(!board.isEmpty(Coord.init(4, 0)));
+    try testing.expect(board.isEmpty(Coord.init(1, 0)));
+    try testing.expect(board.isEmpty(Coord.init(2, 0)));
+    try testing.expect(board.isEmpty(Coord.init(3, 0)));
 
     const undo_success = turn.undoAllActions(&board);
     try testing.expect(undo_success);
@@ -112,7 +112,7 @@ fn countPieces(board: *const Board) u32 {
     var count: u32 = 0;
     for (0..8) |row| {
         for (0..8) |col| {
-            if (!board.isEmpty(@intCast(row), @intCast(col))) {
+            if (!board.isEmpty(Coord.init(@intCast(row), @intCast(col)))) {
                 count += 1;
             }
         }

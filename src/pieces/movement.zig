@@ -86,7 +86,7 @@ fn pawn_movement(piece: Piece, from: Coord, board: *const Board, allocator: std.
         const target_row = @as(u8, @intCast(one_forward_row));
         const target = Coord.init(target_row, from.col);
 
-        if (board.getPieceConst(target.row, target.col) == null) {
+        if (board.getPieceConst(target) == null) {
             try moves.append(target);
 
             if (from.row == start_row) {
@@ -95,7 +95,7 @@ fn pawn_movement(piece: Piece, from: Coord, board: *const Board, allocator: std.
                     const two_target_row = @as(u8, @intCast(two_forward_row));
                     const two_target = Coord.init(two_target_row, from.col);
 
-                    if (board.getPieceConst(two_target.row, two_target.col) == null) {
+                    if (board.getPieceConst(two_target) == null) {
                         try moves.append(two_target);
                     }
                 }
@@ -111,7 +111,7 @@ fn pawn_movement(piece: Piece, from: Coord, board: *const Board, allocator: std.
         if (new_col >= 0 and new_col < 8 and new_row >= 0 and new_row < 8) {
             const target = Coord.init(@as(u8, @intCast(new_row)), @as(u8, @intCast(new_col)));
 
-            if (board.getPieceConst(target.row, target.col)) |target_piece| {
+            if (board.getPieceConst(target)) |target_piece| {
                 if (!target_piece.isColor(color)) {
                     try moves.append(target);
                 }
@@ -140,7 +140,7 @@ fn rook_movement(piece: Piece, from: Coord, board: *const Board, allocator: std.
 
             const target = Coord.init(@as(u8, @intCast(row)), @as(u8, @intCast(col)));
 
-            if (board.getPieceConst(target.row, target.col)) |target_piece| {
+            if (board.getPieceConst(target)) |target_piece| {
                 if (!target_piece.isColor(color)) {
                     try moves.append(target);
                 }
@@ -167,7 +167,7 @@ fn knight_movement(piece: Piece, from: Coord, board: *const Board, allocator: st
         if (new_row >= 0 and new_row < 8 and new_col >= 0 and new_col < 8) {
             const target = Coord.init(@as(u8, @intCast(new_row)), @as(u8, @intCast(new_col)));
 
-            if (board.getPieceConst(target.row, target.col)) |target_piece| {
+            if (board.getPieceConst(target)) |target_piece| {
                 if (!target_piece.isColor(color)) {
                     try moves.append(target);
                 }
@@ -198,7 +198,7 @@ fn bishop_movement(piece: Piece, from: Coord, board: *const Board, allocator: st
 
             const target = Coord.init(@as(u8, @intCast(row)), @as(u8, @intCast(col)));
 
-            if (board.getPieceConst(target.row, target.col)) |target_piece| {
+            if (board.getPieceConst(target)) |target_piece| {
                 if (!target_piece.isColor(color)) {
                     try moves.append(target);
                 }
@@ -237,7 +237,7 @@ fn king_movement(piece: Piece, from: Coord, board: *const Board, allocator: std.
         if (new_row >= 0 and new_row < 8 and new_col >= 0 and new_col < 8) {
             const target = Coord.init(@as(u8, @intCast(new_row)), @as(u8, @intCast(new_col)));
 
-            if (board.getPieceConst(target.row, target.col)) |target_piece| {
+            if (board.getPieceConst(target)) |target_piece| {
                 if (!target_piece.isColor(color)) {
                     try moves.append(target);
                 }
@@ -345,7 +345,7 @@ fn leaper_movement(piece: Piece, from: Coord, board: *const Board, allocator: st
         if (new_row >= 0 and new_row < 8 and new_col >= 0 and new_col < 8) {
             const target = Coord.init(@as(u8, @intCast(new_row)), @as(u8, @intCast(new_col)));
 
-            if (board.getPieceConst(target.row, target.col)) |target_piece| {
+            if (board.getPieceConst(target)) |target_piece| {
                 if (!target_piece.isColor(color)) {
                     try moves.append(target);
                 }

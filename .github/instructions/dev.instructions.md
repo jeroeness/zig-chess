@@ -23,6 +23,11 @@ For debug prints without parameters, use this template: `std.debug.print("Messag
 - Clicking a piece selects it and calculates/displays possible moves
 - Clicking the same piece again deselects it
 - Clicking empty space clears selection
+- Clicking on a highlighted tile executes a move using GameState.executeAction()
+- Move execution properly handles memory management: successful moves are owned by GameState, failed moves are cleaned up immediately to prevent leaks
+
+## Building
+Build project call the tool: `zig_build`.
 
 ## Testing
 

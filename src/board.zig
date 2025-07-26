@@ -1,9 +1,11 @@
 const std = @import("std");
 const piece = @import("piece.zig");
 const cell = @import("cell.zig");
+const coord = @import("coord.zig");
 
 pub const Piece = piece.Piece;
 pub const Cell = cell.Cell;
+pub const Coord = coord.Coord;
 
 pub const Board = struct {
     cells: [8][8]Cell,
@@ -26,69 +28,69 @@ pub const Board = struct {
         return board;
     }
 
-    pub fn getCell(self: *Board, row: usize, col: usize) ?*Cell {
-        if (row >= 8 or col >= 8) {
+    pub fn getCell(self: *Board, position: Coord) ?*Cell {
+        if (!position.isValid()) {
             return null;
         }
-        return &self.cells[row][col];
+        return &self.cells[position.row][position.col];
     }
 
-    pub fn getCellConst(self: *const Board, row: u8, col: u8) ?*const Cell {
-        if (row >= 8 or col >= 8) {
+    pub fn getCellConst(self: *const Board, position: Coord) ?*const Cell {
+        if (!position.isValid()) {
             return null;
         }
-        return &self.cells[row][col];
+        return &self.cells[position.row][position.col];
     }
 
-    pub fn getPiece(self: *Board, row: u8, col: u8) ?*?Piece {
-        if (row >= 8 or col >= 8) {
+    pub fn getPiece(self: *Board, position: Coord) ?*?Piece {
+        if (!position.isValid()) {
             return null;
         }
-        return &self.pieces[row][col];
+        return &self.pieces[position.row][position.col];
     }
 
-    pub fn getPieceConst(self: *const Board, row: u8, col: u8) ?Piece {
-        if (row >= 8 or col >= 8) {
+    pub fn getPieceConst(self: *const Board, position: Coord) ?Piece {
+        if (!position.isValid()) {
             return null;
         }
-        return self.pieces[row][col];
+        return self.pieces[position.row][position.col];
     }
 
-    pub fn isEmpty(self: *const Board, row: usize, col: usize) bool {
-        if (row >= 8 or col >= 8) {
+    pub fn isEmpty(self: *const Board, position: Coord) bool {
+        if (!position.isValid()) {
             return false;
         }
-        return self.pieces[row][col] == null;
+        return self.pieces[position.row][position.col] == null;
     }
 
-    pub fn setPiece(self: *Board, row: u8, col: u8, new_piece: Piece) bool {
-        if (row >= 8 or col >= 8) {
+    pub fn setPiece(self: *Board, position: Coord, new_piece: Piece) bool {
+        if (!position.isValid()) {
             return false;
         }
-        self.pieces[row][col] = new_piece;
+        self.pieces[position.row][position.col] = new_piece;
         return true;
     }
 
-    pub fn clearPiece(self: *Board, row: u8, col: u8) bool {
-        if (row >= 8 or col >= 8) {
+    pub fn clearPiece(self: *Board, position: Coord) bool {
+        if (!position.isValid()) {
             return false;
         }
-        self.pieces[row][col] = null;
+        self.pieces[position.row][position.col] = null;
         return true;
     }
 
-    pub fn movePiece(self: *Board, from_row: u8, from_col: u8, to_row: u8, to_col: u8) bool {
-        if (from_row >= 8 or from_col >= 8 or to_row >= 8 or to_col >= 8) {
+    pub fn movePiece(self: *Board, from: Coord, to: Coord) bool {
+        if (!from.isValid() or !to.isValid()) {
             return false;
         }
 
-        const piece_to_move = self.pieces[from_row][from_col];
+        const piece_to_move = self.pieces[from.row][from.col];
         if (piece_to_move == null) {
             return false;
         }
 
-        self.pieces[to_row][to_col] = piece_to_move;
-        self.pieces[from_row][from_col] = null;
+        self.pieces[to.row][to.col] = piece_to_move;
+        self.pieces[from.row][from.col] = null;
         return true;
     }
 
@@ -100,53 +102,53 @@ pub const Board = struct {
         }
         var id: u8 = 0;
 
-        _ = self.setPiece(0, 0, Piece.init(.rook, .white, id));
+        _ = self.setPiece(Coord.init(0, 0), Piece.init(.rook, .white, id));
         id += 1;
-        _ = self.setPiece(0, 1, Piece.init(.knight, .white, id));
+        _ = self.setPiece(Coord.init(0, 1), Piece.init(.knight, .white, id));
         id += 1;
-        _ = self.setPiece(0, 2, Piece.init(.bishop, .white, id));
+        _ = self.setPiece(Coord.init(0, 2), Piece.init(.bishop, .white, id));
         id += 1;
-        _ = self.setPiece(0, 3, Piece.init(.queen, .white, id));
+        _ = self.setPiece(Coord.init(0, 3), Piece.init(.queen, .white, id));
         id += 1;
-        _ = self.setPiece(0, 4, Piece.init(.king, .white, id));
+        _ = self.setPiece(Coord.init(0, 4), Piece.init(.king, .white, id));
         id += 1;
-        _ = self.setPiece(0, 5, Piece.init(.bishop, .white, id));
+        _ = self.setPiece(Coord.init(0, 5), Piece.init(.bishop, .white, id));
         id += 1;
-        _ = self.setPiece(0, 6, Piece.init(.amazon, .white, id));
+        _ = self.setPiece(Coord.init(0, 6), Piece.init(.amazon, .white, id));
         id += 1;
-        _ = self.setPiece(0, 7, Piece.init(.rook, .white, id));
+        _ = self.setPiece(Coord.init(0, 7), Piece.init(.rook, .white, id));
         id += 1;
 
         for (0..8) |col| {
-            _ = self.setPiece(1, @intCast(col), Piece.init(.pawn, .white, id));
+            _ = self.setPiece(Coord.init(1, @intCast(col)), Piece.init(.pawn, .white, id));
             id += 1;
         }
 
-        _ = self.setPiece(7, 0, Piece.init(.rook, .black, id));
+        _ = self.setPiece(Coord.init(7, 0), Piece.init(.rook, .black, id));
         id += 1;
-        _ = self.setPiece(7, 1, Piece.init(.knight, .black, id));
+        _ = self.setPiece(Coord.init(7, 1), Piece.init(.knight, .black, id));
         id += 1;
-        _ = self.setPiece(7, 2, Piece.init(.bishop, .black, id));
+        _ = self.setPiece(Coord.init(7, 2), Piece.init(.bishop, .black, id));
         id += 1;
-        _ = self.setPiece(7, 3, Piece.init(.queen, .black, id));
+        _ = self.setPiece(Coord.init(7, 3), Piece.init(.queen, .black, id));
         id += 1;
-        _ = self.setPiece(7, 4, Piece.init(.king, .black, id));
+        _ = self.setPiece(Coord.init(7, 4), Piece.init(.king, .black, id));
         id += 1;
-        _ = self.setPiece(7, 5, Piece.init(.bishop, .black, id));
+        _ = self.setPiece(Coord.init(7, 5), Piece.init(.bishop, .black, id));
         id += 1;
-        _ = self.setPiece(7, 6, Piece.init(.amazon, .black, id));
+        _ = self.setPiece(Coord.init(7, 6), Piece.init(.amazon, .black, id));
         id += 1;
-        _ = self.setPiece(7, 7, Piece.init(.rook, .black, id));
+        _ = self.setPiece(Coord.init(7, 7), Piece.init(.rook, .black, id));
         id += 1;
 
         for (0..8) |col| {
-            _ = self.setPiece(6, @intCast(col), Piece.init(.pawn, .black, id));
+            _ = self.setPiece(Coord.init(6, @intCast(col)), Piece.init(.pawn, .black, id));
             id += 1;
         }
     }
 
-    pub fn isValidPosition(row: u8, col: u8) bool {
-        return row < 8 and col < 8;
+    pub fn isValidPosition(position: Coord) bool {
+        return position.isValid();
     }
 
     pub fn serialize(self: Board, allocator: std.mem.Allocator) ![]u32 {

@@ -3,3 +3,7 @@ zig-out
 
 **.a
 **.o
+
+logs/
+__pycache__/
+*.pyc

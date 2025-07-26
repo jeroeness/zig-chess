@@ -60,6 +60,30 @@ pub const Move = struct {
         return action;
     }
 
+    pub fn toString(self: *const Move, allocator: std.mem.Allocator) std.mem.Allocator.Error![]u8 {
+        const start_str = try self.start_coord.toString(allocator);
+        defer allocator.free(start_str);
+
+        const target_str = try self.target_coord.toString(allocator);
+        defer allocator.free(target_str);
+
+        const capture_symbol = if (self.captured_piece != null) "x" else "-";
+
+        if (self.promotion_type) |promo_type| {
+            const promo_char = switch (promo_type) {
+                .queen => "Q",
+                .rook => "R",
+                .knight => "N",
+                .bishop => "B",
+                .amazon => "A",
+                else => "?",
+            };
+            return std.fmt.allocPrint(allocator, "{s}{s}{s}={s}", .{ start_str, capture_symbol, target_str, promo_char });
+        } else {
+            return std.fmt.allocPrint(allocator, "{s}{s}{s}", .{ start_str, capture_symbol, target_str });
+        }
+    }
+
     fn executeMove(action: *const Action, game_board: *Board) bool {
         const move = @as(*const Move, @ptrCast(@alignCast(action.data)));
 
@@ -67,25 +91,25 @@ pub const Move = struct {
             return false;
         }
 
-        const piece_at_start = game_board.getPieceConst(move.start_coord.row, move.start_coord.col);
+        const piece_at_start = game_board.getPieceConst(move.start_coord);
         if (piece_at_start == null) {
             return false;
         }
 
         const move_mut = @as(*Move, @ptrCast(@alignCast(@constCast(action.data))));
-        move_mut.captured_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
+        move_mut.captured_piece = game_board.getPieceConst(move.target_coord);
 
-        const move_success = game_board.movePiece(move.start_coord.row, move.start_coord.col, move.target_coord.row, move.target_coord.col);
+        const move_success = game_board.movePiece(move.start_coord, move.target_coord);
         if (!move_success) {
             return false;
         }
 
         if (move.promotion_type) |promo_type| {
-            const moved_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
+            const moved_piece = game_board.getPieceConst(move.target_coord);
             if (moved_piece) |piece| {
                 move_mut.original_piece = piece;
                 const promoted_piece = Piece.init(promo_type, piece.getColor(), piece.id);
-                _ = game_board.setPiece(move.target_coord.row, move.target_coord.col, promoted_piece);
+                _ = game_board.setPiece(move.target_coord, promoted_piece);
             }
         }
 
@@ -99,7 +123,7 @@ pub const Move = struct {
             return false;
         }
 
-        const moved_piece = game_board.getPieceConst(move.target_coord.row, move.target_coord.col);
+        const moved_piece = game_board.getPieceConst(move.target_coord);
         if (moved_piece == null) {
             return false;
         }
@@ -109,12 +133,12 @@ pub const Move = struct {
             piece_to_move_back = move.original_piece.?;
         }
 
-        _ = game_board.setPiece(move.start_coord.row, move.start_coord.col, piece_to_move_back);
+        _ = game_board.setPiece(move.start_coord, piece_to_move_back);
 
-        _ = game_board.clearPiece(move.target_coord.row, move.target_coord.col);
+        _ = game_board.clearPiece(move.target_coord);
 
         if (move.captured_piece) |captured| {
-            _ = game_board.setPiece(move.target_coord.row, move.target_coord.col, captured);
+            _ = game_board.setPiece(move.target_coord, captured);
         }
 
         return true;
